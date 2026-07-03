@@ -1,0 +1,28 @@
+---
+import { profile } from '../data/portfolio';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© {year} {profile.name}</p>
+    <p class="footer__made">Construit avec Astro & React</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-block: 2rem;
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>

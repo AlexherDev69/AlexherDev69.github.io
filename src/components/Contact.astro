@@ -1,0 +1,61 @@
+---
+import { profile, socials } from '../data/portfolio';
+---
+
+<section id="contact" class="section">
+  <div class="container contact reveal">
+    <p class="eyebrow">Contact</p>
+    <h2 class="section-title">Travaillons ensemble</h2>
+    <p class="section-lead contact__lead">
+      Un projet, une idée ou une opportunité ? N'hésite pas à m'écrire, je réponds rapidement.
+    </p>
+
+    <a href={`mailto:${profile.email}`} class="btn btn-primary contact__mail">
+      {profile.email}
+    </a>
+
+    <ul class="contact__socials">
+      {socials.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    text-align: center;
+    max-width: 640px;
+  }
+
+  .contact__lead {
+    margin-inline: auto;
+  }
+
+  .contact__mail {
+    margin-top: 2rem;
+    font-size: var(--step-1);
+  }
+
+  .contact__socials {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+  }
+
+  .contact__socials a {
+    color: var(--muted);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .contact__socials a:hover {
+    color: var(--text-strong);
+  }
+</style>

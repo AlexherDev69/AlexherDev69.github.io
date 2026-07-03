@@ -1,0 +1,178 @@
+---
+import { experiences, education, languages } from '../data/portfolio';
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Parcours</p>
+      <h2 class="section-title">Expérience professionnelle</h2>
+      <p class="section-lead">
+        6 ans à concevoir, développer et livrer des produits web & mobiles, en freelance
+        comme en équipe.
+      </p>
+    </div>
+
+    <ol class="timeline">
+      {experiences.map((xp) => (
+        <li class="timeline__item reveal">
+          <div class="timeline__marker" aria-hidden="true"></div>
+          <div class="card timeline__card">
+            <div class="timeline__head">
+              <div>
+                <h3 class="timeline__role">{xp.role}</h3>
+                <p class="timeline__company">
+                  {xp.company} · <span class="timeline__type">{xp.type}</span>
+                </p>
+              </div>
+              <div class="timeline__meta">
+                <span>{xp.period}</span>
+                <span>{xp.location}</span>
+              </div>
+            </div>
+            <ul class="timeline__list">
+              {xp.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="extra reveal">
+      <div class="card extra__card">
+        <p class="eyebrow">Formation</p>
+        <p class="extra__main">{education.degree}</p>
+        <p class="extra__sub">{education.school} · {education.year}</p>
+      </div>
+      <div class="card extra__card">
+        <p class="eyebrow">Langues</p>
+        <ul class="extra__langs">
+          {languages.map((l) => <li class="chip">{l}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-left: 1.8rem;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: 0;
+    top: 1.9rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gradient);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2.6rem;
+    bottom: -1.4rem;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline__item:last-child::before {
+    display: none;
+  }
+
+  .timeline__card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .timeline__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .timeline__role {
+    font-size: var(--step-1);
+  }
+
+  .timeline__company {
+    color: var(--text);
+    font-weight: 500;
+    margin-top: 0.2rem;
+  }
+
+  .timeline__type {
+    color: var(--accent);
+  }
+
+  .timeline__meta {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .timeline__list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.45rem;
+    color: var(--muted);
+  }
+
+  .timeline__list li::marker {
+    color: var(--accent);
+  }
+
+  .extra {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 1.4rem;
+  }
+
+  .extra__main {
+    font-size: var(--step-1);
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-top: 0.6rem;
+  }
+
+  .extra__sub {
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .extra__langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .timeline__meta {
+      text-align: left;
+    }
+    .extra {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

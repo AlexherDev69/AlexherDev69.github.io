@@ -1,0 +1,104 @@
+---
+import { profile, stats } from '../data/portfolio';
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <div class="about reveal">
+      <div class="about__photo">
+        <img
+          src="/assets/moi/portrait.jpg"
+          alt={profile.name}
+          width="640"
+          height="640"
+          loading="lazy"
+        />
+      </div>
+      <div class="about__text">
+        <p class="eyebrow">À propos</p>
+        <h2 class="section-title">Un dev qui aime le travail bien fait</h2>
+        {profile.bio.map((p) => <p class="about__p">{p}</p>)}
+      </div>
+    </div>
+
+    <ul class="about__stats reveal">
+      {stats.map((s) => (
+        <li class="card about__stat">
+          <span class="about__value gradient-text">{s.value}</span>
+          <span class="about__label">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) 1fr;
+    gap: clamp(1.8rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .about__photo {
+    position: relative;
+    padding: 5px;
+    border-radius: calc(var(--radius) + 5px);
+    background: var(--gradient);
+    box-shadow: var(--glow);
+  }
+
+  .about__photo img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+  }
+
+  .about__p {
+    color: var(--muted);
+    margin-top: 1rem;
+    max-width: 62ch;
+  }
+
+  .about__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+  }
+
+  .about__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: flex-start;
+  }
+
+  .about__value {
+    font-size: var(--step-3);
+    font-weight: 800;
+  }
+
+  .about__label {
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 820px) {
+    .about {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    .about__photo {
+      max-width: 260px;
+      justify-self: center;
+    }
+    .about__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

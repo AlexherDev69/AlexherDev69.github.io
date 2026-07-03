@@ -1,0 +1,66 @@
+---
+import { skills } from '../data/portfolio';
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Compétences</p>
+      <h2 class="section-title">Ma stack technique</h2>
+      <p class="section-lead">
+        Les technologies avec lesquelles je conçois, développe et déploie au quotidien.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      {skills.map((group) => (
+        <article class="card skill-card reveal">
+          <h3 class="skill-card__title">{group.title}</h3>
+          <ul class="skill-card__list">
+            {group.items.map((item) => (
+              <li class="chip">{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    background: var(--surface-hover);
+  }
+
+  .skill-card__title {
+    font-size: var(--step-1);
+    margin-bottom: 1.1rem;
+  }
+
+  .skill-card__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .chip {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    font-size: var(--step--1);
+    color: var(--text);
+  }
+</style>

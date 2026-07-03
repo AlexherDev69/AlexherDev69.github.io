@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.tsx';
+import ProjectBrowser from '../components/ProjectBrowser.tsx';
+import { portfolioProjects, profile } from '../data/portfolio';
+---
+
+<BaseLayout
+  title={`Portfolio · ${profile.name}`}
+  description="Parcours des projets professionnels et personnels d'Alexandre Hernandez, un par un."
+>
+  <div class="pb-topbar">
+    <div class="container pb-topbar__inner">
+      <a href="/" class="pb-back" aria-label="Retour à l'accueil">← Accueil</a>
+      <span class="pb-topbar__title">Portfolio</span>
+      <ThemeToggle client:load />
+    </div>
+  </div>
+
+  <main class="container pb-main">
+    <ProjectBrowser projects={portfolioProjects} client:load />
+    <p class="pb-hint">
+      Utilise les flèches <kbd>←</kbd> <kbd>→</kbd> du clavier ou les boutons pour naviguer.
+    </p>
+  </main>
+
+  <style is:global>
+    .pb-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .pb-topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.4rem;
+    }
+    .pb-back {
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+    .pb-back:hover {
+      color: var(--text-strong);
+    }
+    .pb-topbar__title {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .pb-main {
+      padding-block: clamp(2rem, 1.5rem + 3vw, 4rem);
+    }
+    .pb-hint {
+      text-align: center;
+      color: var(--muted);
+      font-size: var(--step--1);
+      margin-top: 2rem;
+    }
+    .pb-hint kbd {
+      display: inline-block;
+      padding: 0.1rem 0.45rem;
+      border: 1px solid var(--border-strong);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: var(--surface);
+      font-size: 0.8em;
+      font-family: inherit;
+    }
+
+    /* ---- Navigateur de projets ---- */
+    .pb {
+      max-width: 860px;
+      margin-inline: auto;
+    }
+    .pb__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.6rem;
+    }
+    .pb__meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .pb__cat {
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .pb__cat--pro {
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    .pb__cat--perso {
+      color: var(--accent-2);
+      background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+    }
+    .pb__counter {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      color: var(--text-strong);
+    }
+    .pb__counter span {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .pb__dots {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .pb__dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .pb__dot:hover {
+      transform: scale(1.25);
+    }
+    .pb__dot.is-active.pb__dot--pro {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .pb__dot.is-active.pb__dot--perso {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+    }
+
+    .pb__card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.6rem, 1rem + 3vw, 2.8rem);
+      animation: pb-in 0.4s ease both;
+    }
+    .pb__card--prev {
+      animation-name: pb-in-left;
+    }
+    @keyframes pb-in {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes pb-in-left {
+      from { opacity: 0; transform: translateX(-24px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .pb__context {
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pb__title {
+      font-size: var(--step-3);
+      margin: 0.5rem 0 0.6rem;
+    }
+    .pb__tagline {
+      font-size: var(--step-1);
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .pb__highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      padding: 0.55rem 0.95rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-strong);
+      background: var(--gradient);
+      color: #0a0b10;
+    }
+
+    .pb__body {
+      display: grid;
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+    .pb__block h2 {
+      font-size: var(--step-1);
+      margin-bottom: 0.6rem;
+    }
+    .pb__block > p {
+      color: var(--muted);
+    }
+    .pb__list {
+      margin: 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.5rem;
+      color: var(--muted);
+    }
+    .pb__list li::marker {
+      color: var(--accent);
+    }
+    .pb__challenges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .pb__challenge {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
+      background: var(--bg-soft);
+    }
+    .pb__challenge h3 {
+      font-size: var(--step-0);
+      margin-bottom: 0.4rem;
+    }
+    .pb__challenge p {
+      color: var(--muted);
+      font-size: var(--step--1);
+    }
+
+    .pb__foot {
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .pb__stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pb__links {
+      display: flex;
+      gap: 1.3rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pb__links a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Flèches latérales fixes (navigation entre projets) */
+    .pb__side {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: color-mix(in srgb, var(--bg-soft) 82%, transparent);
+      backdrop-filter: blur(8px);
+      color: var(--text);
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease, background-color 0.2s ease,
+        border-color 0.2s ease, color 0.2s ease;
+    }
+    .pb__side:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      color: var(--text-strong);
+      transform: translateY(-50%) scale(1.08);
+    }
+    .pb__side:active {
+      transform: translateY(-50%) scale(0.96);
+    }
+    .pb__side--prev {
+      left: clamp(0.5rem, 2.5vw, 2rem);
+    }
+    .pb__side--next {
+      right: clamp(0.5rem, 2.5vw, 2rem);
+    }
+    @media (max-width: 520px) {
+      .pb__side {
+        width: 2.6rem;
+        height: 2.6rem;
+        font-size: 1.2rem;
+      }
+      .pb__side--prev {
+        left: 0.4rem;
+      }
+      .pb__side--next {
+        right: 0.4rem;
+      }
+    }
+
+    /* ---- Galerie ---- */
+    .pb__gallery {
+      margin-top: 2rem;
+    }
+    .pb__gallery-title {
+      font-size: var(--step-1);
+      margin-bottom: 1rem;
+    }
+    .pb__shots {
+      columns: 240px;
+      column-gap: 12px;
+    }
+    .pb__shot {
+      display: block;
+      width: 100%;
+      margin: 0 0 12px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-soft);
+      cursor: zoom-in;
+      break-inside: avoid;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .pb__shot:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .pb__shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ---- Lightbox ---- */
+    .pb__lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 3rem);
+      background: rgba(5, 6, 10, 0.86);
+      backdrop-filter: blur(6px);
+      animation: pb-fade 0.2s ease both;
+    }
+    @keyframes pb-fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .pb__lb-fig {
+      margin: 0;
+      max-width: min(1000px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .pb__lb-fig img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+    }
+    .pb__lb-fig figcaption {
+      color: #cfd3dd;
+      font-size: var(--step--1);
+      text-align: center;
+      max-width: 60ch;
+    }
+    .pb__lb-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      display: grid;
+      place-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .pb__lb-close:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .pb__lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .pb__lb-arrow:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .pb__lb-arrow--prev {
+      left: clamp(0.6rem, 3vw, 2rem);
+    }
+    .pb__lb-arrow--next {
+      right: clamp(0.6rem, 3vw, 2rem);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pb__card,
+      .pb__lightbox {
+        animation: none;
+      }
+    }
+  </style>
+</BaseLayout>

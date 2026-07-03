@@ -1,0 +1,123 @@
+---
+import { personalProjects } from '../data/portfolio';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">Projets perso</p>
+      <h2 class="section-title">Ce que je construis sur mon temps libre</h2>
+      <p class="section-lead">
+        Des projets personnels pour explorer de nouvelles idées et technos. Clique sur un
+        projet pour l'ouvrir en détail, ou parcours tout le portfolio (pro et perso).
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      {personalProjects.map((project) => (
+        <a class="card project" href={`/projets#${project.slug}`}>
+          <div class="project__body reveal">
+            <div class="project__head">
+              <h3 class="project__title">{project.title}</h3>
+              {project.highlight && <span class="project__star" title={project.highlight}>★</span>}
+            </div>
+            <p class="project__desc">{project.tagline}</p>
+            <ul class="project__tags">
+              {project.stack.slice(0, 4).map((tag) => (
+                <li class="chip">{tag}</li>
+              ))}
+            </ul>
+            <span class="project__cta">Voir le détail →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="projects-more reveal">
+      <a href="/projets" class="btn btn-primary">Parcourir tout le portfolio →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.4rem;
+    margin-top: 2.5rem;
+  }
+
+  .project {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .project::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-strong);
+  }
+
+  .project:hover::before {
+    opacity: 1;
+  }
+
+  .project__body {
+    padding: 1.7rem;
+  }
+
+  .project__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .project__title {
+    font-size: var(--step-2);
+  }
+
+  .project__star {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  .project__desc {
+    color: var(--muted);
+    margin-top: 0.7rem;
+  }
+
+  .project__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0 0;
+  }
+
+  .project__cta {
+    display: inline-block;
+    margin-top: 1.3rem;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: var(--step--1);
+  }
+
+  .projects-more {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+</style>
