@@ -430,6 +430,12 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
     result:
       'Distribuée en installeur léger via un monorepo pnpm (app, mcp-server, shared), avec tests Vitest et CI GitHub Actions (lint, typecheck, tests TS et cargo check/test).',
+    gallery: [
+      {
+        src: '/assets/mirrorMind/MirrorMind-demo-1.5x.gif',
+        alt: 'Démonstration de MirrorMind : Claude Code voit et pilote le téléphone Android en temps réel depuis Windows.',
+      },
+    ],
     stack: [
       'Tauri 2',
       'Rust',

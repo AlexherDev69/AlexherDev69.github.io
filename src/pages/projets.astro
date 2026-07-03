@@ -319,20 +319,22 @@ import { portfolioProjects, profile } from '../data/portfolio';
       margin-bottom: 1rem;
     }
     .pb__shots {
-      columns: 240px;
-      column-gap: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
     }
     .pb__shot {
-      display: block;
-      width: 100%;
-      margin: 0 0 12px;
+      flex: 0 1 240px;
+      max-width: 100%;
+      align-self: flex-start;
+      margin: 0;
       padding: 0;
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       overflow: hidden;
       background: var(--bg-soft);
       cursor: zoom-in;
-      break-inside: avoid;
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
     .pb__shot:hover {
