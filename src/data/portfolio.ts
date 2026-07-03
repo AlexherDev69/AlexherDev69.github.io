@@ -388,48 +388,57 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
   },
   {
-    slug: 'phone-to-stream',
-    title: 'PhoneStream',
+    slug: 'mirrormind',
+    title: 'MirrorMind',
     category: 'Perso',
-    context: 'Projet personnel, application desktop Windows',
+    context: 'Projet personnel, application desktop + serveur MCP',
     tagline:
-      "Branchez un téléphone Android en USB : son écran apparaît instantanément sur Windows, contrôlable à la souris/clavier et pilotable par Claude Code via un serveur MCP.",
-    highlight:
-      'Installeur de ~5 Mo (Tauri) et ~30 Mo de RAM, là où un équivalent Electron pèserait 150 Mo.',
+      "Application Windows qui détecte un téléphone Android branché en USB, diffuse son écran en temps réel et l'expose à Claude Code via un serveur MCP, pour que l'IA puisse voir et piloter le téléphone directement.",
+    highlight: 'Application de bureau open source.',
+    problem:
+      "Tester et déboguer une app mobile en cours de développement est laborieux : configurer scrcpy à la main, jongler sans cesse entre le téléphone et l'écran. Et surtout, un assistant IA comme Claude Code ne voit pas le téléphone : il ne peut ni tester une app mobile, ni la déboguer visuellement, ni reproduire un parcours utilisateur réel.",
     solution:
-      "PhoneStream détecte automatiquement un téléphone Android connecté en USB et diffuse son écran en direct avec une latence minimale, en s'appuyant sur le protocole scrcpy et le décodage matériel H.264 via WebCodecs. L'application gère le contrôle complet (tactile, clavier, scroll, presse-papier), l'audio temps réel (Opus), le mode sans fil (WiFi / adb TCP-IP avec mDNS) et un onboarding zéro-friction adapté par marque (Samsung, Xiaomi, Pixel, OnePlus).",
+      "MirrorMind détecte le téléphone dès qu'il est branché et affiche son écran instantanément (protocole scrcpy, décodage H.264 accéléré par le matériel). Surtout, il expose un serveur MCP qui donne à Claude Code des outils natifs pour voir et agir : capture d'écran, tap, swipe, saisie, navigation, OCR. L'IA devient capable de piloter et tester une app mobile en autonomie.",
     features: [
-      'Auto-détection USB, démarrage instantané du stream et reconnexion automatique.',
-      'Contrôle tactile / clavier / scroll et partage du presse-papier (Ctrl+Shift+V).',
-      'Audio temps réel (Opus, WebCodecs).',
-      'Mode WiFi sans câble (adb TCP/IP, mDNS, wireless debugging Android 11+).',
-      'Enregistrement H.264 vers MP4, screenshots natifs, logcat temps réel, macros (record/replay), OCR.',
-      'System tray, mini-player, always-on-top et adaptation automatique du ratio d\'écran.',
+      "Stream automatique en USB : branché, l'écran apparaît instantanément. Contrôle tactile, clavier et scroll depuis le PC, reconnexion auto au débranchement.",
+      "Serveur MCP « MirrorMind » : plus de 15 outils exposés à Claude Code (screenshot, tap, swipe, saisie, deep links, arbre d'accessibilité, OCR, attente de texte et batch d'actions).",
+      'Audio, WiFi et presse-papier : son du téléphone forwardé en Opus, mode sans fil (adb TCP/IP + mDNS), copier-coller PC vers téléphone en un raccourci.',
+      'Onboarding et confort : assistant par marque (Samsung, Xiaomi, Pixel), system tray, mini-player, always-on-top, enregistrement H.264 vers MP4 et logcat en temps réel.',
     ],
     challenges: [
       {
-        title: 'MirrorMind, serveur MCP',
-        description:
-          "Un serveur MCP qui expose l'écran et les contrôles du téléphone à Claude Code : voir l'écran, taper, swiper, lancer des apps, lire l'arbre d'UI, faire de l'OCR. 15+ outils pour du debug visuel et du pair-programming mobile assisté.",
-      },
-      {
         title: 'Protocole scrcpy bas niveau',
         description:
-          'Implémentation du parsing wire : device name sur 64 bytes, paquets [PTS + size + H.264], sockets vidéo / audio / contrôle.',
+          "Implémentation du wire protocol : nom d'appareil sur 64 octets, paquets [PTS + taille + H.264], trois sockets vidéo / audio / contrôle, et décodage matériel via WebCodecs directement dans la WebView.",
       },
       {
-        title: 'Serveur HTTP local durci',
+        title: 'Serveur MCP autonome embarqué',
         description:
-          'Bind sur 127.0.0.1, token persistant, validation du Host anti-DNS-rebinding, CORS strict, Zod et rate limiting.',
+          "Bundling d'un serveur Node self-contained (dépendances natives sharp, tesseract incluses) dans l'installeur Tauri, résolu au runtime via les resources. Le MCP fonctionne sans repo source.",
       },
       {
-        title: 'Architecture et sécurité ADB',
+        title: 'API interne durcie',
         description:
-          'Architecture clean (domain / data / presentation) et sécurité ADB : whitelist, validation des serials, anti-injection.',
+          'Serveur HTTP lié à 127.0.0.1 uniquement, token 32 octets persistant, validation du Host contre le DNS-rebinding, CORS strict, validation Zod et rate limiting.',
+      },
+      {
+        title: 'Pont IA vers téléphone',
+        description:
+          "Traduction des intentions de Claude en actions ADB / scrcpy : coordonnées en pourcentage, batch d'actions côté serveur, attente intelligente de changement d'écran, OCR de secours.",
+      },
+      {
+        title: "Tauri plutôt qu'Electron",
+        description:
+          "Backend Rust + WebView2 : installeur ~5 Mo et ~30 Mo de RAM, là où l'équivalent Electron pèserait 150 Mo. Commandes async et events Tauri pour transporter les frames vidéo.",
+      },
+      {
+        title: 'Robustesse temps réel',
+        description:
+          "Auto-reconnexion USB / WiFi, activation du tcpip séquencée avant le stream pour ne pas le couper, adaptation du ratio de fenêtre, et suppression des fenêtres console au runtime.",
       },
     ],
     result:
-      'Distribuée en installeur léger via un monorepo pnpm (app, mcp-server, shared), avec tests Vitest et CI GitHub Actions (lint, typecheck, tests TS et cargo check/test).',
+      "Une application de bureau complète : streaming Android en temps réel et intégration IA native. Claude Code peut voir et piloter un vrai téléphone (debug visuel, test d'app mobile, pair-programming). Architecture Rust + React + MCP, sécurité, tests et releases menés de bout en bout, jusqu'à l'installeur distribué.",
     gallery: [
       {
         src: '/assets/mirrorMind/MirrorMind-demo-1.5x.gif',
@@ -439,24 +448,22 @@ export const portfolioProjects: PortfolioProject[] = [
     stack: [
       'Tauri 2',
       'Rust',
-      'Tokio',
-      'axum',
       'React 19',
       'TypeScript',
-      'Vite',
-      'Tailwind CSS 4',
       'Zustand',
-      'scrcpy',
+      'Tailwind CSS 4',
       'WebCodecs',
-      'Opus',
-      'ADB',
-      'Node.js',
+      'scrcpy',
       'MCP SDK',
+      'Node.js',
       'Zod',
-      'Tesseract.js',
       'pnpm',
-      'Vitest',
-      'GitHub Actions',
+    ],
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/AlexherDev69/MirrorMind',
+      },
     ],
   },
   {
