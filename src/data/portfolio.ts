@@ -125,6 +125,9 @@ export type PortfolioProject = {
   result?: string;
   highlight?: string;
   gallery?: ProjectImage[];
+  // Clé d'une maquette HTML custom (ex: 'easydiet') affichée dans l'Aperçu à la
+  // place d'une galerie d'images.
+  preview?: string;
   stack: string[];
   links?: ProjectLink[];
 };
@@ -317,11 +320,72 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: 'easydiet',
     title: 'EasyDiet',
     category: 'Perso',
-    context: 'Projet personnel, Application mobile',
-    tagline: 'Application mobile Flutter de suivi nutritionnel.',
+    context: 'Projet personnel, application mobile',
+    tagline:
+      'Application Flutter de nutrition qui compose un plan de repas sur mesure, génère la liste de courses et suit la perte de poids. Entièrement hors ligne, sans compte, sans publicité.',
+    highlight: 'Publiée sur le Google Play Store.',
+    preview: 'easydiet',
+    problem:
+      "Les applications de nutrition sérieuses sont presque toutes payantes, saturées de publicités et bloquées derrière un compte en ligne. Elles hébergent surtout des données de santé sensibles sur leurs serveurs. Suivre un régime au quotidien ne devrait pas coûter sa vie privée.",
     solution:
-      'Application de suivi nutritionnel bâtie en clean architecture (domain / data / presentation), avec state management Cubit et stockage local via Drift.',
-    stack: ['Flutter', 'Dart', 'Cubit', 'Drift'],
+      "EasyDiet fait tout le travail localement. À partir d'un profil (poids, taille, objectif, activité), l'application calcule les besoins caloriques et compose un programme de repas complet, la liste de courses associée et le suivi de la progression. Aucune connexion, aucun compte, aucune donnée qui quitte l'appareil.",
+    features: [
+      'Plan de repas personnalisé, généré selon la formule Mifflin-St Jeor et adapté au régime (omnivore, végétarien, vegan) et aux allergies.',
+      'Plus de 90 recettes en photo, avec instructions pas à pas et mode cuisine intégré (minuteur). Cuisines française, indienne, japonaise, espagnole.',
+      'Liste de courses automatique : ingrédients agrégés et triés par rayon de supermarché.',
+      "Suivi du poids : graphiques d'évolution et projection de la date d'objectif au rythme actuel.",
+    ],
+    challenges: [
+      {
+        title: 'Génération sous contraintes',
+        description:
+          "Un moteur de ~940 lignes sélectionne les recettes en respectant une cible calorique à ±10 %, le régime, les allergènes et les viandes exclues, sans répétition dans la semaine, avec un mode économique qui maximise le partage d'ingrédients.",
+      },
+      {
+        title: 'Agrégation des courses',
+        description:
+          "Normalisation de plus de 500 synonymes d'ingrédients, conversion d'unités (densités, poids par pièce) et fusion en une seule ligne par ingrédient, qu'il soit mesuré en grammes, millilitres ou pièces.",
+      },
+      {
+        title: 'Architecture offline-first',
+        description:
+          'Clean Architecture (core + features en domain / data / presentation), base Drift / SQLite à 9 tables, injection GetIt et état géré au Cubit / Bloc. Zéro appel réseau.',
+      },
+      {
+        title: 'Optimiseur de batch cooking',
+        description:
+          'Entrelacement des phases (préparation, cuisson, finition) entre plusieurs recettes pour cuisiner plusieurs jours en une seule session.',
+      },
+      {
+        title: 'Design system Material 3',
+        description:
+          'Thème émeraude sur mesure, glassmorphism, animations et illustrations CustomPaint. Interface entièrement en français, pensée mobile.',
+      },
+      {
+        title: 'Qualité et logique métier',
+        description:
+          'Tests unitaires sur le moteur nutritionnel, séparation stricte logique / UI, fichiers bornés et responsabilité unique par fonction.',
+      },
+    ],
+    result:
+      "Une application mobile complète et publiée : portage d'une app Kotlin native vers Flutter. De l'onboarding au suivi de poids, une logique métier nutrition non triviale, 100 % hors ligne et respectueuse de la vie privée. Conception, développement, tests et publication menés de bout en bout.",
+    stack: [
+      'Flutter',
+      'Dart',
+      'Cubit / Bloc',
+      'Drift (SQLite)',
+      'GetIt',
+      'go_router',
+      'Material 3',
+      'fl_chart',
+      'Clean Architecture',
+    ],
+    links: [
+      {
+        label: 'Google Play',
+        url: 'https://play.google.com/store/apps/details?id=com.easydiet.easydiet',
+      },
+    ],
   },
   {
     slug: 'phone-to-stream',

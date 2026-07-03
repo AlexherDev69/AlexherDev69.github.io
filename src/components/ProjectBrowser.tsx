@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { PortfolioProject } from '../data/portfolio';
+import EasyDietPreview from './EasyDietPreview';
 
 type Props = {
   projects: PortfolioProject[];
@@ -112,22 +113,26 @@ export default function ProjectBrowser({ projects }: Props) {
           </p>
         )}
 
-        {gallery.length > 0 && (
+        {(gallery.length > 0 || project.preview === 'easydiet') && (
           <section className="pb__gallery">
             <h2 className="pb__gallery-title">Aperçu</h2>
-            <div className="pb__shots">
-              {gallery.map((img, i) => (
-                <button
-                  type="button"
-                  className="pb__shot"
-                  key={img.src}
-                  onClick={() => setLightbox(i)}
-                  aria-label={`Agrandir : ${img.alt}`}
-                >
-                  <img src={img.src} alt={img.alt} loading="lazy" />
-                </button>
-              ))}
-            </div>
+            {project.preview === 'easydiet' ? (
+              <EasyDietPreview />
+            ) : (
+              <div className="pb__shots">
+                {gallery.map((img, i) => (
+                  <button
+                    type="button"
+                    className="pb__shot"
+                    key={img.src}
+                    onClick={() => setLightbox(i)}
+                    aria-label={`Agrandir : ${img.alt}`}
+                  >
+                    <img src={img.src} alt={img.alt} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
           </section>
         )}
 

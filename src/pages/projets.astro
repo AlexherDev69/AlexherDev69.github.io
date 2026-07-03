@@ -345,6 +345,218 @@ import { portfolioProjects, profile } from '../data/portfolio';
       display: block;
     }
 
+    /* ---- Maquettes EasyDiet (préfixe .edm) ---- */
+    .edm {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 26px;
+      background: linear-gradient(
+        180deg,
+        rgba(16, 185, 129, 0.06),
+        rgba(16, 185, 129, 0.01)
+      );
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+    .edm-cap {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+    .edm .phone {
+      width: 214px;
+      flex: none;
+      background: #060e0c;
+      border: 1px solid rgba(198, 240, 226, 0.14);
+      border-radius: 30px;
+      padding: 7px;
+      box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7);
+    }
+    .edm .phone__screen {
+      background: linear-gradient(180deg, #ecfdf5, #f0fdf4 40%);
+      border-radius: 24px;
+      overflow: hidden;
+      color: #0f172a;
+      font-size: 11px;
+    }
+    .edm .phone__status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px 4px;
+      color: #64748b;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .edm .phone__status .dots {
+      display: flex;
+      gap: 3px;
+    }
+    .edm .phone__status .dots i {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #94a3b8;
+      display: block;
+    }
+    .edm .phone__body {
+      padding: 6px 14px 18px;
+    }
+    .edm .p-eyebrow {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #059669;
+      margin: 6px 0 2px;
+    }
+    .edm .p-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      margin: 0 0 12px;
+    }
+    .edm .ring-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 4px 0 12px;
+    }
+    .edm .ring {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #10b981 0turn 0.57turn,
+        rgba(15, 23, 42, 0.08) 0.57turn 1turn
+      );
+      display: grid;
+      place-items: center;
+    }
+    .edm .ring__hole {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: #f0fdf4;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+    }
+    .edm .ring__hole b {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+      display: block;
+      line-height: 1;
+    }
+    .edm .ring__hole span {
+      font-size: 8px;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .edm .macro {
+      margin: 9px 0;
+    }
+    .edm .macro__row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+    .edm .macro__row b {
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+    }
+    .edm .bar {
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(15, 23, 42, 0.07);
+      overflow: hidden;
+    }
+    .edm .bar i {
+      display: block;
+      height: 100%;
+      border-radius: 3px;
+    }
+    .edm .meal {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 11px;
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 13px;
+      padding: 8px;
+      box-shadow: 0 6px 14px -10px rgba(16, 185, 129, 0.5);
+    }
+    .edm .meal__thumb {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      flex: none;
+      background: linear-gradient(135deg, #34d399, #059669);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+    }
+    .edm .meal b {
+      font-size: 10px;
+      color: #0f172a;
+      display: block;
+    }
+    .edm .meal span {
+      font-size: 8.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .edm .stat {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 2px 0 10px;
+    }
+    .edm .stat b {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .edm .stat .pill {
+      font-size: 9px;
+      font-weight: 800;
+      color: #059669;
+      background: rgba(16, 185, 129, 0.14);
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+    .edm .chart {
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      border-radius: 13px;
+      padding: 10px;
+    }
+    .edm .chart svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .edm .legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 8px;
+      color: #94a3b8;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
     /* ---- Lightbox ---- */
     .pb__lightbox {
       position: fixed;
