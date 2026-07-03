@@ -472,9 +472,9 @@ export const portfolioProjects: PortfolioProject[] = [
     category: 'Perso',
     context: 'Projet personnel, produit SaaS B2B piloté par IA',
     tagline:
-      "Tester en 15 minutes le sang-froid d'un dirigeant face à la crise.",
+      "Tester en 5 minutes le sang-froid d'un salarié face à la crise.",
     solution:
-      "Un dirigeant est mis en situation de crise simulée. Une IA joue le scénario, s'adapte en temps réel à chaque décision, mesure le temps de réaction et note la performance sur une grille de 100 points. À la sortie : un débrief actionnable, pas une note en l'air.",
+      "Un salarié est mis en situation de crise simulée. Une IA joue le scénario, s'adapte en temps réel à chaque décision, mesure le temps de réaction et note la performance sur une grille de 100 points. À la sortie : un débrief actionnable, pas une note en l'air.",
     features: [
       'Cadrage : choix du secteur et du type de crise (sanitaire, cyber, RH, réputation, environnement).',
       "Scénario généré par l'IA, ancré dans des cas réels grâce au RAG.",
@@ -495,7 +495,7 @@ export const portfolioProjects: PortfolioProject[] = [
       {
         title: 'Scénarios adaptatifs',
         description:
-          "L'IA ajuste chaque situation aux réponses du dirigeant, en s'inspirant de cas réels (Lactalis, Lubrizol, France Télécom).",
+          "L'IA ajuste chaque situation aux réponses du salarié, en s'inspirant de cas réels (Lactalis, Lubrizol, France Télécom).",
       },
       {
         title: 'Rapports PDF',
