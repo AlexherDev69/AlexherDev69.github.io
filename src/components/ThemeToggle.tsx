@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 type Theme = 'light' | 'dark';
 
 /**
- * Îlot React : bascule le thème clair/sombre et le persiste dans localStorage.
+ * Îlot React : bascule le thème Innie (sombre) / Outie (clair) et le persiste.
  * L'anti-FOUC est géré par un script bloquant dans <head> (voir BaseLayout).
+ * Le libellé affiche le mode courant : sombre = Innie, clair = Outie.
  */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>('dark');
@@ -26,10 +27,10 @@ export default function ThemeToggle() {
       type="button"
       className="theme-toggle"
       onClick={toggle}
-      aria-label={theme === 'dark' ? 'Activer le thème clair' : 'Activer le thème sombre'}
-      title={theme === 'dark' ? 'Thème clair' : 'Thème sombre'}
+      aria-label={theme === 'dark' ? 'Passer en mode Outie (clair)' : 'Passer en mode Innie (sombre)'}
+      title={theme === 'dark' ? 'Mode Innie' : 'Mode Outie'}
     >
-      {theme === 'dark' ? '☀️' : '🌙'}
+      {theme === 'dark' ? 'Innie' : 'Outie'}
     </button>
   );
 }

@@ -1,21 +1,23 @@
 ---
 import { profile, socials } from '../data/portfolio';
+
+const externals = socials.filter((s) => !s.url.startsWith('mailto:'));
 ---
 
-<section id="contact" class="section">
+<section id="contact" class="section section--ruled">
   <div class="container contact reveal">
-    <p class="eyebrow">Contact</p>
-    <h2 class="section-title">Travaillons ensemble</h2>
-    <p class="section-lead contact__lead">
-      Un projet, une idée ou une opportunité ? N'hésite pas à m'écrire, je réponds rapidement.
+    <p class="section-index contact__index"><b>Section 05</b> · Autorisation de sortie</p>
+    <h2 class="contact__title">Autorisation de sortie accordée.</h2>
+    <p class="contact__lead">
+      Un projet, une mission freelance, ou l'envie d'échanger sur l'IA agentique : le canal est ouvert.
     </p>
 
-    <a href={`mailto:${profile.email}`} class="btn btn-primary contact__mail">
-      {profile.email}
+    <a href={`mailto:${profile.email}`} class="contact__mail">
+      &gt; {profile.email}
     </a>
 
     <ul class="contact__socials">
-      {socials.map((s) => (
+      {externals.map((s) => (
         <li>
           <a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a>
         </li>
@@ -27,35 +29,68 @@ import { profile, socials } from '../data/portfolio';
 <style>
   .contact {
     text-align: center;
-    max-width: 640px;
+    max-width: 660px;
+  }
+
+  .contact__index {
+    color: var(--accent);
+  }
+
+  .contact__index b {
+    color: var(--accent);
+  }
+
+  .contact__title {
+    margin: 1.2rem 0 0.8rem;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5.5vw, 3.9rem);
+    line-height: 1.03;
+    letter-spacing: -0.02em;
   }
 
   .contact__lead {
-    margin-inline: auto;
+    margin: 0 auto 1.9rem;
+    max-width: 46ch;
+    color: var(--muted);
+    line-height: 1.75;
   }
 
   .contact__mail {
-    margin-top: 2rem;
-    font-size: var(--step-1);
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.85rem 1.4rem;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .contact__mail:hover {
+    background: var(--accent);
+    color: var(--bg);
   }
 
   .contact__socials {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1.6rem;
+    gap: 1.5rem;
     list-style: none;
     padding: 0;
-    margin-top: 2rem;
+    margin-top: 2.2rem;
   }
 
   .contact__socials a {
-    color: var(--muted);
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
     transition: color 0.2s ease;
   }
 
   .contact__socials a:hover {
-    color: var(--text-strong);
+    color: var(--accent);
   }
 </style>

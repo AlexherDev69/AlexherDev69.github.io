@@ -1,21 +1,20 @@
 ---
 import { profile } from '../data/portfolio';
 const year = new Date().getFullYear();
+const surname = profile.name.split(' ').slice(-1)[0];
 ---
 
 <footer class="footer">
   <div class="container footer__inner">
-    <p>© {year} {profile.name}</p>
-    <p class="footer__made">Construit avec Astro & React</p>
+    <span>© {year} A. {surname}</span>
+    <span class="footer__mid">Un travail précis &amp; important</span>
+    <span>Bâti avec Astro &amp; React</span>
   </div>
 </footer>
 
 <style>
   .footer {
     border-top: 1px solid var(--border);
-    padding-block: 2rem;
-    color: var(--muted);
-    font-size: var(--step--1);
   }
 
   .footer__inner {
@@ -24,5 +23,15 @@ const year = new Date().getFullYear();
     justify-content: space-between;
     gap: 1rem;
     flex-wrap: wrap;
+    padding-block: 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer__mid {
+    color: var(--accent);
   }
 </style>

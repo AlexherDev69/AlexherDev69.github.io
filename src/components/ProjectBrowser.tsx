@@ -7,8 +7,9 @@ type Props = {
 };
 
 /**
- * Navigateur de projets : affiche un projet à la fois.
- * Navigation par flèches (boutons), clavier (← / →) et deep-link (#slug).
+ * Navigateur de dossiers (DA Severance / MDR) : un dossier à la fois.
+ * Navigation par flèches (boutons), clavier (← / →), points de progression
+ * et deep-link (#slug). Habillage terminal, logique inchangée.
  */
 export default function ProjectBrowser({ projects }: Props) {
   const total = projects.length;
@@ -16,7 +17,7 @@ export default function ProjectBrowser({ projects }: Props) {
   const [dir, setDir] = useState<1 | -1>(1);
   const [lightbox, setLightbox] = useState<number | null>(null);
 
-  // Ouvre le projet correspondant au hash (#slug) au chargement.
+  // Ouvre le dossier correspondant au hash (#slug) au chargement.
   useEffect(() => {
     const slug = window.location.hash.replace('#', '');
     if (!slug) return;
@@ -40,13 +41,13 @@ export default function ProjectBrowser({ projects }: Props) {
     [index]
   );
 
-  // Met à jour le hash pour rendre chaque projet partageable.
+  // Met à jour le hash pour rendre chaque dossier partageable.
   useEffect(() => {
     const slug = projects[index]?.slug;
     if (slug) window.history.replaceState(null, '', `#${slug}`);
   }, [index, projects]);
 
-  // Ferme la lightbox quand on change de projet.
+  // Ferme la lightbox quand on change de dossier.
   useEffect(() => {
     setLightbox(null);
   }, [index]);
@@ -54,7 +55,6 @@ export default function ProjectBrowser({ projects }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const gallery = projects[index]?.gallery;
-      // En mode lightbox : les flèches naviguent entre les images, Échap ferme.
       if (lightbox !== null && gallery && gallery.length > 0) {
         if (e.key === 'Escape') setLightbox(null);
         if (e.key === 'ArrowLeft')
@@ -73,27 +73,27 @@ export default function ProjectBrowser({ projects }: Props) {
   if (!project) return null;
 
   const gallery = project.gallery ?? [];
-
+  const cat = project.category.toLowerCase();
   const counter = String(index + 1).padStart(2, '0');
   const totalLabel = String(total).padStart(2, '0');
+  const idHex = '0x' + (index + 1).toString(16).toUpperCase().padStart(2, '0');
 
   return (
-    <div className="pb">
-      <div className="pb__top">
-        <div className="pb__meta">
-          <span className={`pb__cat pb__cat--${project.category.toLowerCase()}`}>
-            {project.category === 'Pro' ? 'Projet pro' : 'Projet perso'}
-          </span>
-          <span className="pb__counter">
-            {counter} <span>/ {totalLabel}</span>
-          </span>
-        </div>
-        <div className="pb__dots" role="tablist" aria-label="Projets">
+    <div className="pv">
+      {/* Ligne de statut */}
+      <div className="pv__status">
+        <span className={`pv__badge pv__badge--${cat}`}>
+          {project.category === 'Pro' ? 'Dossier Pro' : 'Dossier Perso'}
+        </span>
+        <span className="pv__counter">
+          {counter} / {totalLabel}
+        </span>
+        <div className="pv__dots" role="tablist" aria-label="Dossiers">
           {projects.map((p, i) => (
             <button
               key={p.slug}
               type="button"
-              className={`pb__dot ${i === index ? 'is-active' : ''} pb__dot--${p.category.toLowerCase()}`}
+              className={`pv__dot pv__dot--${p.category.toLowerCase()} ${i === index ? 'is-active' : ''}`}
               aria-label={p.title}
               aria-selected={i === index}
               onClick={() => jump(i)}
@@ -102,33 +102,35 @@ export default function ProjectBrowser({ projects }: Props) {
         </div>
       </div>
 
-      <article key={project.slug} className={`pb__card pb__card--${dir > 0 ? 'next' : 'prev'}`}>
-        <p className="pb__context">{project.context}</p>
-        <h1 className="pb__title">{project.title}</h1>
-        <p className="pb__tagline">{project.tagline}</p>
+      <article
+        key={project.slug}
+        className={`pv__card ${dir > 0 ? 'pv__card--next' : 'pv__card--prev'}`}
+      >
+        <p className="pv__eyebrow">{idHex} · {project.context}</p>
+        <h1 className="pv__title">{project.title}</h1>
+        <p className="pv__tagline">{project.tagline}</p>
 
         {project.highlight && (
-          <p className="pb__highlight">
-            <span aria-hidden="true">★</span> {project.highlight}
-          </p>
+          <p className="pv__highlight">★ {project.highlight}</p>
         )}
 
         {(gallery.length > 0 || project.preview === 'easydiet') && (
-          <section className="pb__gallery">
-            <h2 className="pb__gallery-title">Aperçu</h2>
+          <section className="pv__section">
+            <p className="pv__label">&gt; Aperçu</p>
             {project.preview === 'easydiet' ? (
               <EasyDietPreview />
             ) : (
-              <div className="pb__shots">
+              <div className="pv__shots">
                 {gallery.map((img, i) => (
                   <button
                     type="button"
-                    className="pb__shot"
+                    className="pv__shot"
                     key={img.src}
                     onClick={() => setLightbox(i)}
                     aria-label={`Agrandir : ${img.alt}`}
                   >
                     <img src={img.src} alt={img.alt} loading="lazy" />
+                    <span className="pv__shot-num">⛶ {String(i + 1).padStart(2, '0')}</span>
                   </button>
                 ))}
               </div>
@@ -136,39 +138,45 @@ export default function ProjectBrowser({ projects }: Props) {
           </section>
         )}
 
-        <div className="pb__body">
+        <div className="pv__body">
           {project.problem && (
-            <section className="pb__block">
-              <h2>Le problème</h2>
-              <p>{project.problem}</p>
+            <section className="pv__section">
+              <p className="pv__label">&gt; Le problème</p>
+              <p className="pv__text">{project.problem}</p>
             </section>
           )}
 
           {project.solution && (
-            <section className="pb__block">
-              <h2>La solution</h2>
-              <p>{project.solution}</p>
+            <section className="pv__section">
+              <p className="pv__label pv__label--accent">&gt; La solution</p>
+              <p className="pv__text">{project.solution}</p>
             </section>
           )}
 
           {project.features && project.features.length > 0 && (
-            <section className="pb__block">
-              <h2>Fonctionnalités</h2>
-              <ul className="pb__list">
+            <section className="pv__section">
+              <p className="pv__label">&gt; Fonctionnalités</p>
+              <ul className="pv__list">
                 {project.features.map((f) => (
-                  <li key={f}>{f}</li>
+                  <li key={f}>
+                    <span className="pv__bullet" aria-hidden="true">›</span>
+                    {f}
+                  </li>
                 ))}
               </ul>
             </section>
           )}
 
           {project.challenges && project.challenges.length > 0 && (
-            <section className="pb__block">
-              <h2>Défis techniques</h2>
-              <div className="pb__challenges">
-                {project.challenges.map((c) => (
-                  <div className="pb__challenge" key={c.title}>
-                    <h3>{c.title}</h3>
+            <section className="pv__section">
+              <p className="pv__label">&gt; Défis techniques</p>
+              <div className="pv__challenges">
+                {project.challenges.map((c, i) => (
+                  <div className="pv__challenge" key={c.title}>
+                    <div className="pv__challenge-head">
+                      <span className="pv__challenge-no">{String(i + 1).padStart(2, '0')}</span>
+                      <h3>{c.title}</h3>
+                    </div>
                     <p>{c.description}</p>
                   </div>
                 ))}
@@ -177,23 +185,21 @@ export default function ProjectBrowser({ projects }: Props) {
           )}
 
           {project.result && (
-            <section className="pb__block">
-              <h2>Résultat</h2>
-              <p>{project.result}</p>
+            <section className="pv__result">
+              <p className="pv__label pv__label--accent">&gt; Résultat — raffiné 100%</p>
+              <p className="pv__text">{project.result}</p>
             </section>
           )}
         </div>
 
-        <div className="pb__foot">
-          <ul className="pb__stack">
+        <div className="pv__foot">
+          <ul className="pv__stack">
             {project.stack.map((s) => (
-              <li key={s} className="chip">
-                {s}
-              </li>
+              <li key={s} className="chip">{s}</li>
             ))}
           </ul>
           {project.links && project.links.length > 0 && (
-            <ul className="pb__links">
+            <ul className="pv__links">
               {project.links.map((l) => (
                 <li key={l.url}>
                   <a href={l.url} target="_blank" rel="noopener noreferrer">
@@ -208,36 +214,40 @@ export default function ProjectBrowser({ projects }: Props) {
 
       <button
         type="button"
-        className="pb__side pb__side--prev"
+        className="pv__arrow pv__arrow--prev"
         onClick={() => go(-1)}
-        aria-label="Projet précédent"
+        aria-label="Dossier précédent"
       >
         ←
       </button>
       <button
         type="button"
-        className="pb__side pb__side--next"
+        className="pv__arrow pv__arrow--next"
         onClick={() => go(1)}
-        aria-label="Projet suivant"
+        aria-label="Dossier suivant"
       >
         →
       </button>
 
       {lightbox !== null && gallery[lightbox] && (
         <div
-          className="pb__lightbox"
+          className="pv__lb"
           role="dialog"
           aria-modal="true"
           aria-label={gallery[lightbox].alt}
           onClick={() => setLightbox(null)}
         >
-          <button type="button" className="pb__lb-close" aria-label="Fermer" onClick={() => setLightbox(null)}>
-            ×
-          </button>
+          <div className="pv__lb-counter">
+            {lightbox + 1} / {gallery.length}
+          </div>
+          <figure className="pv__lb-fig" onClick={(e) => e.stopPropagation()}>
+            <img src={gallery[lightbox].src} alt={gallery[lightbox].alt} />
+          </figure>
+          <p className="pv__lb-cap">{gallery[lightbox].alt}</p>
           {gallery.length > 1 && (
             <button
               type="button"
-              className="pb__lb-arrow pb__lb-arrow--prev"
+              className="pv__lb-arrow pv__lb-arrow--prev"
               aria-label="Image précédente"
               onClick={(e) => {
                 e.stopPropagation();
@@ -247,14 +257,10 @@ export default function ProjectBrowser({ projects }: Props) {
               ←
             </button>
           )}
-          <figure className="pb__lb-fig" onClick={(e) => e.stopPropagation()}>
-            <img src={gallery[lightbox].src} alt={gallery[lightbox].alt} />
-            <figcaption>{gallery[lightbox].alt}</figcaption>
-          </figure>
           {gallery.length > 1 && (
             <button
               type="button"
-              className="pb__lb-arrow pb__lb-arrow--next"
+              className="pv__lb-arrow pv__lb-arrow--next"
               aria-label="Image suivante"
               onClick={(e) => {
                 e.stopPropagation();
@@ -264,6 +270,14 @@ export default function ProjectBrowser({ projects }: Props) {
               →
             </button>
           )}
+          <button
+            type="button"
+            className="pv__lb-close"
+            aria-label="Fermer"
+            onClick={() => setLightbox(null)}
+          >
+            ✕
+          </button>
         </div>
       )}
     </div>

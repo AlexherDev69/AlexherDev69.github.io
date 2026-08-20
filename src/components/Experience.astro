@@ -2,177 +2,142 @@
 import { experiences, education, languages } from '../data/portfolio';
 ---
 
-<section id="experience" class="section">
+<section id="experience" class="section section--ruled">
   <div class="container">
     <div class="reveal">
-      <p class="eyebrow">Parcours</p>
-      <h2 class="section-title">Expérience professionnelle</h2>
-      <p class="section-lead">
-        6 ans à concevoir, développer et livrer des produits web & mobiles, en freelance
-        comme en équipe.
-      </p>
+      <p class="section-index"><b>Section 03</b> · Historique</p>
+      <h2 class="section-title">Registre de service</h2>
     </div>
 
-    <ol class="timeline">
+    <div class="registry">
       {experiences.map((xp) => (
-        <li class="timeline__item reveal">
-          <div class="timeline__marker" aria-hidden="true"></div>
-          <div class="card timeline__card">
-            <div class="timeline__head">
-              <div>
-                <h3 class="timeline__role">{xp.role}</h3>
-                <p class="timeline__company">
-                  {xp.company} · <span class="timeline__type">{xp.type}</span>
-                </p>
-              </div>
-              <div class="timeline__meta">
-                <span>{xp.period}</span>
-                <span>{xp.location}</span>
-              </div>
-            </div>
-            <ul class="timeline__list">
-              {xp.highlights.map((h) => <li>{h}</li>)}
+        <div class="registry__row reveal">
+          <div class="registry__meta">
+            <div class="registry__period">{xp.period}</div>
+            <div class="registry__ctx">{xp.type} · {xp.location}</div>
+          </div>
+          <div>
+            <h3 class="registry__role">{xp.role}</h3>
+            <p class="registry__company">{xp.company}</p>
+            <ul class="registry__list">
+              {xp.highlights.map((h) => (
+                <li><span class="registry__bullet" aria-hidden="true">›</span>{h}</li>
+              ))}
             </ul>
           </div>
-        </li>
+        </div>
       ))}
-    </ol>
 
-    <div class="extra reveal">
-      <div class="card extra__card">
-        <p class="eyebrow">Formation</p>
-        <p class="extra__main">{education.degree}</p>
-        <p class="extra__sub">{education.school} · {education.year}</p>
-      </div>
-      <div class="card extra__card">
-        <p class="eyebrow">Langues</p>
-        <ul class="extra__langs">
-          {languages.map((l) => <li class="chip">{l}</li>)}
-        </ul>
+      <div class="registry__row reveal">
+        <div class="registry__meta">
+          <div class="registry__ctx">Annexe</div>
+        </div>
+        <div class="registry__annex">
+          <div>
+            <p class="registry__annex-main">{education.degree}</p>
+            <p class="registry__annex-sub">{education.school} · {education.year}</p>
+          </div>
+          <div>
+            <p class="registry__annex-main">Langues</p>
+            <p class="registry__annex-sub">{languages.join(' · ')}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .timeline {
-    list-style: none;
-    margin: 2.5rem 0 0;
-    padding: 0;
+  .registry {
+    margin-top: 2.2rem;
     display: grid;
-    gap: 1.4rem;
+    gap: 0;
   }
 
-  .timeline__item {
+  .registry__row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: clamp(1.2rem, 4vw, 3.5rem);
+    padding: 1.8rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .registry__period {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .registry__ctx {
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .registry__role {
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text-strong);
+  }
+
+  .registry__company {
+    margin: 0.3rem 0 1rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .registry__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .registry__list li {
     position: relative;
-    padding-left: 1.8rem;
+    padding-left: 1.3rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text);
   }
 
-  .timeline__marker {
+  .registry__bullet {
     position: absolute;
     left: 0;
-    top: 1.9rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--gradient);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+    top: 0.1rem;
+    font-family: var(--font-mono);
+    color: var(--accent);
   }
 
-  .timeline__item::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 2.6rem;
-    bottom: -1.4rem;
-    width: 2px;
-    background: var(--border);
-  }
-
-  .timeline__item:last-child::before {
-    display: none;
-  }
-
-  .timeline__card:hover {
-    border-color: var(--border-strong);
-  }
-
-  .timeline__head {
+  .registry__annex {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 3.5rem;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
   }
 
-  .timeline__role {
-    font-size: var(--step-1);
-  }
-
-  .timeline__company {
-    color: var(--text);
-    font-weight: 500;
-    margin-top: 0.2rem;
-  }
-
-  .timeline__type {
-    color: var(--accent);
-  }
-
-  .timeline__meta {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    color: var(--muted);
-    font-size: var(--step--1);
-  }
-
-  .timeline__list {
-    margin: 0;
-    padding-left: 1.1rem;
-    display: grid;
-    gap: 0.45rem;
-    color: var(--muted);
-  }
-
-  .timeline__list li::marker {
-    color: var(--accent);
-  }
-
-  .extra {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-    margin-top: 1.4rem;
-  }
-
-  .extra__main {
-    font-size: var(--step-1);
-    font-weight: 700;
+  .registry__annex-main {
+    font-weight: 600;
+    font-size: 1.2rem;
     color: var(--text-strong);
-    margin-top: 0.6rem;
   }
 
-  .extra__sub {
+  .registry__annex-sub {
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
     color: var(--muted);
-    font-size: var(--step--1);
-  }
-
-  .extra__langs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    padding: 0;
-    margin-top: 0.8rem;
   }
 
   @media (max-width: 640px) {
-    .timeline__meta {
-      text-align: left;
-    }
-    .extra {
+    .registry__row {
       grid-template-columns: 1fr;
+      gap: 0.8rem;
     }
   }
 </style>

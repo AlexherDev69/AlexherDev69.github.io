@@ -46,7 +46,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body>
-    <slot />
+    <!-- Habillage MDR : scanlines CRT + halo teal -->
+    <div class="fx-scanlines" aria-hidden="true"></div>
+    <div class="fx-halo" aria-hidden="true"></div>
+
+    <div class="fx-content">
+      <slot />
+    </div>
 
     <!-- Apparition progressive des éléments .reveal au scroll -->
     <script is:inline>
