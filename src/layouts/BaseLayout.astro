@@ -21,6 +21,12 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const shareImage = {
+  url: new URL('/og-image.png', Astro.site),
+  width: 1200,
+  height: 630,
+  alt: `${profile.name}, ${profile.role} à Lyon : captures de 10 000 pas et EasyDiet`,
+};
 ---
 
 <!doctype html>
@@ -38,7 +44,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content={shareImage.url} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content={String(shareImage.width)} />
+    <meta property="og:image:height" content={String(shareImage.height)} />
+    <meta property="og:image:alt" content={shareImage.alt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage.url} />
+    <meta name="twitter:image:alt" content={shareImage.alt} />
 
     <!-- Active les animations avant le premier rendu, sauf si le visiteur préfère les réduire -->
     <script is:inline>

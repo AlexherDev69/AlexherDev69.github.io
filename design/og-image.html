@@ -1,0 +1,60 @@
+<!doctype html>
+<!--
+  Source of public/og-image.png (link preview on LinkedIn, X, messaging apps).
+  Regenerate: pnpm og:image
+-->
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: 'Newsreader'; src: url('../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2') format('woff2'); font-weight: 200 800; font-style: normal; }
+      @font-face { font-family: 'Newsreader'; src: url('../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2') format('woff2'); font-weight: 200 800; font-style: italic; }
+      @font-face { font-family: 'Hanken Grotesk'; src: url('../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+
+      :root { --paper: #F5F2EC; --ink: #1C1B19; --ink-2: #3B3934; --muted: #6F6A62; --line: rgba(28, 27, 25, .16); --accent: #2D4A8A; }
+      * { box-sizing: border-box; margin: 0; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--paper); }
+      body { position: relative; font-family: 'Hanken Grotesk', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+      .text { position: absolute; left: 64px; top: 56px; bottom: 52px; width: 600px; display: flex; flex-direction: column; }
+      .top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+      .label { font-size: 15px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+      .status { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--ink-2); }
+      .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(45, 74, 138, .14); }
+      h1 { margin-top: 44px; font-family: 'Newsreader', serif; font-weight: 340; font-size: 66px; line-height: 1.02; letter-spacing: -.028em; }
+      h1 em { font-weight: 300; }
+      .lead { margin-top: 26px; font-size: 21px; line-height: 1.5; color: var(--ink-2); }
+      .foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; }
+      .name { font-family: 'Newsreader', serif; font-size: 28px; font-weight: 420; letter-spacing: -.01em; }
+      .url { font-size: 16px; color: var(--muted); }
+
+      .stage { position: absolute; top: 0; right: 0; bottom: 0; width: 470px; background: #EFDFCF; overflow: hidden; }
+      .shot { position: absolute; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 34px 60px -26px rgba(28, 27, 25, .55), 0 0 0 1px rgba(28, 27, 25, .06); }
+      .shot img { display: block; width: 100%; height: auto; }
+      .shot--back { width: 196px; top: 150px; }
+      .shot--left { left: -34px; }
+      .shot--right { right: -52px; }
+      .shot--lead { width: 228px; left: 121px; top: 62px; border-radius: 26px; box-shadow: 0 44px 80px -30px rgba(28, 27, 25, .65), 0 0 0 1px rgba(28, 27, 25, .06); }
+    </style>
+  </head>
+  <body>
+    <div class="text">
+      <div class="top">
+        <span class="label">Développeur full stack · Lyon</span>
+        <span class="status"><span class="dot"></span>Disponible</span>
+      </div>
+      <h1>Des applications web<br />et mobiles, de l'idée<br />à la <em>mise en ligne</em>.</h1>
+      <p class="lead">Flutter, React, Node.js et IA agentique.<br />10&nbsp;000 pas, EasyDiet, MirrorMind…</p>
+      <div class="foot">
+        <span class="name">Alexandre Hernandez</span>
+        <span class="url">alexherdev69.github.io</span>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <div class="shot shot--back shot--left"><img src="../public/assets/easydiet/tableau-de-bord.webp" alt="" /></div>
+      <div class="shot shot--back shot--right"><img src="../public/assets/10000pas/guidage.webp" alt="" /></div>
+      <div class="shot shot--lead"><img src="../public/assets/10000pas/parcours.webp" alt="" /></div>
+    </div>
+  </body>
+</html>
