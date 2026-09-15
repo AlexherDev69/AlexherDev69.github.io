@@ -1,0 +1,56 @@
+---
+/**
+ * Deux écrans EasyDiet redessinés en HTML (tableau de bord et suivi du poids).
+ * `shotClass` habille chaque écran selon le contexte (scène ou galerie).
+ */
+interface Props {
+  shotClass: string;
+  innerClass?: string;
+}
+
+const MACROS = [
+  { label: 'Protéines', value: '78 / 136 g', ratio: '57%', color: '#F43F5E' },
+  { label: 'Glucides', value: '140 / 245 g', ratio: '57%', color: '#F59E0B' },
+  { label: 'Lipides', value: '42 / 73 g', ratio: '58%', color: '#0EA5E9' },
+];
+const CHART_POINTS = '4,20 34,30 64,28 94,46 124,58 154,66 176,76';
+const MONTHS = ['Mars', 'Avr.', 'Mai', 'Juin'];
+
+const { shotClass, innerClass } = Astro.props;
+---
+
+<div class={shotClass} style="--i: 0">
+  <div class={innerClass}>
+    <div class="ed-phone" role="img" aria-label="EasyDiet, tableau de bord du jour : calories et macronutriments">
+      <div class="ed-k">Aujourd'hui</div>
+      <div class="ed-h">Tableau de bord</div>
+      <div class="ed-ring"><div class="ed-ring__in"><div><b>1&nbsp;240</b><span>/ 2&nbsp;175 kcal</span></div></div></div>
+      <div class="ed-macros">
+        {MACROS.map((macro) => (
+          <div>
+            <div class="ed-row"><span>{macro.label}</span><b>{macro.value}</b></div>
+            <div class="ed-bar"><i style={`width: ${macro.ratio}; background: ${macro.color}`}></i></div>
+          </div>
+        ))}
+      </div>
+      <div class="ed-meal"><i></i><div><b>Pancakes protéinés banane</b><span class="ed-sub">570 kcal · 20 min</span></div></div>
+    </div>
+  </div>
+</div>
+<div class={shotClass} style="--i: 1">
+  <div class={innerClass}>
+    <div class="ed-phone" role="img" aria-label="EasyDiet, suivi du poids avec la courbe et la date d'objectif">
+      <div class="ed-k">Suivi</div>
+      <div class="ed-h">Mon poids</div>
+      <div class="ed-weight"><b>78,3</b><span class="ed-sub">kg</span><span class="ed-pill">−4,2 kg</span></div>
+      <div class="ed-chart">
+        <svg viewBox="0 0 180 96" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="ed-area" points={`${CHART_POINTS} 176,96 4,96`}></polygon>
+          <polyline class="ed-line" pathLength="100" points={CHART_POINTS}></polyline>
+        </svg>
+        <div class="ed-months">{MONTHS.map((month) => <span>{month}</span>)}</div>
+      </div>
+      <div class="ed-goal"><i></i><div><b>Objectif atteint vers</b><span class="ed-sub">mi-septembre · 68 kg</span></div></div>
+    </div>
+  </div>
+</div>

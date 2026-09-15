@@ -1,177 +1,33 @@
 ---
-import { portfolioProjects } from '../data/portfolio';
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+import { otherWorks } from '../data/portfolio';
 
-const files = portfolioProjects.map((project, i) => ({
-  ...project,
-  id: '0x' + (i + 1).toString(16).toUpperCase().padStart(2, '0'),
-}));
+const NUMBER_WORDS = ['aucune', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
+const countWord = NUMBER_WORDS[projects.length] ?? String(projects.length);
+const countLabel = `${countWord} étude${projects.length > 1 ? 's' : ''} de cas`;
 ---
 
-<section id="projects" class="section section--ruled">
-  <div class="container">
-    <div class="dossiers__head reveal">
-      <div>
-        <p class="section-index"><b>Section 04</b> · Dossiers</p>
-        <h2 class="section-title">Huit fichiers raffinés</h2>
-      </div>
-      <a href="/projets" class="dossiers__archive">Archive complète ↗</a>
+<section id="projets" class="sec" style="padding-top: 24px">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 class="sec__title mask"><span>Projets sélectionnés</span></h2>
+      <span class="count rv">{countLabel}</span>
     </div>
 
-    <div class="dossiers">
-      {files.map((p) => (
-        <a class="dossier reveal" href={`/projets#${p.slug}`}>
-          <div class="dossier__top">
-            <span>{p.id}</span>
-            <span>{p.category === 'Pro' ? 'Dossier Pro' : 'Dossier Perso'}</span>
-          </div>
-          <div class="dossier__nums" aria-hidden="true">08 42 19&nbsp;&nbsp;7 05 61 3</div>
-          <h3 class="dossier__title">
-            {p.highlight && <span class="dossier__star" aria-hidden="true">★ </span>}{p.title}
-          </h3>
-          <p class="dossier__ctx">{p.context}</p>
-          <div class="dossier__rule" aria-hidden="true"></div>
-          <div class="dossier__foot">
-            <span class="dossier__casting">{p.stack.slice(0, 3).join(' · ')}</span>
-            <span class="dossier__open">Ouvrir ▸</span>
-          </div>
-        </a>
+    {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+
+    <div class="sec__head" style="margin-top: 40px">
+      <h2 class="sec__title sec__title--small mask"><span>Autres réalisations</span></h2>
+    </div>
+    <div class="others">
+      {otherWorks.map((work, index) => (
+        <div class="other rv" style={`--d: ${index * 100}ms`}>
+          <h3 class="other__t">{work.title}</h3>
+          <span class="other__c">{work.context}</span>
+          <p class="other__d">{work.description}</p>
+        </div>
       ))}
     </div>
   </div>
 </section>
-
-<style>
-  .dossiers__head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-  }
-
-  .dossiers__head .section-title {
-    margin-bottom: 0;
-  }
-
-  .dossiers__archive {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent);
-    padding-bottom: 0.2rem;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .dossiers__archive:hover {
-    color: var(--text-strong);
-    border-color: var(--text-strong);
-  }
-
-  .dossiers {
-    margin-top: 1.9rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
-  }
-
-  .dossier {
-    display: block;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .dossier__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .dossier__nums {
-    margin: 0.75rem 0 0.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
-    color: var(--accent);
-    opacity: 0.32;
-    transform-origin: left;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  .dossier__title {
-    margin: 0.5rem 0 0.25rem;
-    font-weight: 600;
-    font-size: 1.35rem;
-    letter-spacing: -0.01em;
-    color: var(--text-strong);
-  }
-
-  .dossier__star {
-    color: var(--accent);
-  }
-
-  .dossier__ctx {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .dossier__rule {
-    margin: 0.9rem 0 0.65rem;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .dossier__foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .dossier__casting {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    max-width: 160px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .dossier__open {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  .dossier:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-  }
-
-  .dossier:hover .dossier__nums {
-    opacity: 0.85;
-    transform: scaleX(1.06);
-  }
-
-  .dossier:hover .dossier__open {
-    opacity: 1;
-  }
-</style>

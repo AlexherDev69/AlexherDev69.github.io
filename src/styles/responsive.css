@@ -1,0 +1,73 @@
+/* Écrans intermédiaires : les trois captures doivent tenir dans la scène */
+@media (max-width: 1200px) {
+  .stage__view { gap: clamp(10px, 1.4vw, 18px); }
+  .shot { width: 28%; }
+  .shot--lead { width: 32%; }
+}
+
+/* Téléphone */
+@media (max-width: 760px) {
+  .wrap { padding: 0 20px; }
+  .hdr__in { height: 60px; gap: 16px; }
+  .nav, .status { display: none; }
+  .hdr__cta { display: inline-flex; }
+  .brand { font-size: 19px; }
+  .hero { padding: 112px 0 64px; }
+  .hero__meta { flex-direction: column; gap: 6px; }
+  .hero__title { margin-top: 36px; font-size: 42px; line-height: 1.06; }
+  .hero__title .line, .hero__title .line > span { display: inline; }
+  .anim .hero .line > span { animation: none; }
+  .anim .hero__title { animation: fadeUp 1.3s var(--ease) .3s both; }
+  .shot:nth-child(1) { --p: 16px; }
+  .shot:nth-child(2) { --p: -12px; }
+  .shot:nth-child(3) { --p: 22px; }
+  .hero__foot { grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 44px; }
+  .hero__lead, .hero__cue { grid-column: auto; justify-self: start; font-size: 16px; }
+  .sec { padding: 72px 0; }
+  .count { font-size: 18px; }
+  .sec__head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .proj { padding: 16px 0 72px; }
+  .proj__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 20px; }
+  .proj__text, .proj__stage, .proj--flip .proj__text, .proj--flip .proj__stage { grid-column: auto; grid-row: auto; }
+  .proj__stage { order: -1; }
+  .proj__title { font-size: 46px; }
+  .proj__tag { font-size: 16px; }
+  .stage { height: 440px; }
+  .stage__view { gap: 12px; }
+  .shot { width: 38%; }
+  .shot--lead { width: 42%; }
+  .stage__view > .shot:nth-child(3) { display: none; }
+  .mm-shot { width: 66%; }
+  .fm { width: 86%; gap: 24px; }
+  .fm__row { grid-template-columns: 104px minmax(0, 1fr) 28px; font-size: 13px; }
+  .ed-phone { padding: 16px 12px; font-size: 11px; }
+  .ed-ring { width: 100px; height: 100px; }
+  .ed-ring__in { width: 76px; height: 76px; }
+  .other, .xp__row, .about { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .other__t, .other__c, .other__d, .xp__when, .xp__main, .xp__desc, .about__pic, .about__body { grid-column: auto; }
+  .other__t, .xp__role { font-size: 26px; }
+  .about { gap: 36px; }
+  .about__pic { max-width: 300px; }
+  .skills { grid-template-columns: minmax(0, 1fr); }
+  .contact { padding: 96px 0 36px; }
+  .contact__title { font-size: 52px; }
+  .contact__p { font-size: 16px; }
+  .mail { font-size: 22px; gap: 10px; }
+  .foot { flex-direction: column; margin-top: 80px; }
+  .detail__bar-in { height: 56px; }
+  .d-hero { padding: 44px 20px 32px; }
+  .d-title { font-size: 58px; }
+  .d-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 36px; }
+  .d-gallery { justify-content: flex-start; padding: 28px 20px; gap: 14px; }
+  .g { height: 400px; }
+  .g--wide { height: 340px; }
+  .g--short { height: 220px; }
+  .g--mock { width: 210px; }
+  .d-sec { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 40px 0; }
+  .d-sec__label, .d-sec__body { grid-column: auto; }
+  .d-ch { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .d-social { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .d-video { width: 220px; }
+  .next { padding: 64px 0 88px; }
+  .next__t { font-size: 52px; gap: 18px; }
+}

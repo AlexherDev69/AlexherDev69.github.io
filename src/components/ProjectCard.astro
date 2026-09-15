@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import ProjectStage from './ProjectStage.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const isFlipped = index % 2 === 1;
+---
+
+<article id={project.slug} class:list={['proj', { 'proj--flip': isFlipped }]}>
+  <div class="rule rv"></div>
+  <div class="proj__top"><span class="proj__num">{number}</span><span class="label">{project.kicker}</span></div>
+  <div class="proj__grid">
+    <div class="proj__text">
+      <h3 class="proj__title mask"><span>{project.title}</span></h3>
+      <p class="proj__tag rv" style="--d: 120ms">{project.tagline}</p>
+      <ul class="facts rv" style="--d: 200ms">
+        {project.highlights.map((fact) => <li><span>{fact.label}</span><b>{fact.value}</b></li>)}
+      </ul>
+      <p class="stack rv" style="--d: 260ms">{project.stackSummary.join(' · ')}</p>
+      <button type="button" class="more rv" style="--d: 320ms" data-open-case={project.slug}>
+        <span>Voir l'étude de cas<span class="sr-only"> {project.title}</span></span>
+        <span class="more__arrow"><span class="arr"><Icon name="arrow-right" /><Icon name="arrow-right" /></span></span>
+      </button>
+    </div>
+    <div class="proj__stage">
+      <ProjectStage project={project} />
+    </div>
+  </div>
+</article>

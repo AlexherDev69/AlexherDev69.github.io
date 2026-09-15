@@ -1,0 +1,39 @@
+/* Parcours */
+.xp { border-top: 1px solid var(--line); }
+.xp__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+.xp__when { grid-column: 1 / span 3; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.xp__main { grid-column: 4 / span 5; }
+.xp__role { font-family: var(--serif); font-weight: 380; font-size: 30px; line-height: 1.15; letter-spacing: -.015em; }
+.xp__org { margin: 6px 0 0; font-size: 15px; color: var(--ink-2); }
+.xp__desc { grid-column: 9 / span 4; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
+
+/* À propos */
+.about { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.about__pic { grid-column: 1 / span 4; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; background: var(--paper-2); }
+.about__pic img { width: 100%; height: 100%; object-fit: cover; }
+.anim .about__pic img { transform: scale(1.14); transition: transform 2.2s var(--ease); }
+.anim .about__pic.in img { transform: none; }
+.about__body { grid-column: 6 / span 7; }
+.about__lead { margin: 20px 0 0; font-family: var(--serif); font-weight: 340; font-size: clamp(28px, 2.9vw, 42px); line-height: 1.24; letter-spacing: -.016em; text-wrap: pretty; }
+.about__p { margin: 28px 0 0; max-width: 60ch; font-size: 17px; color: var(--ink-2); text-wrap: pretty; }
+.skills { margin-top: 56px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; border-top: 1px solid var(--line); }
+.skill { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.skill h3 { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.skill p { margin: 6px 0 0; font-size: 15px; }
+
+/* Contact */
+.contact { padding: 160px 0 48px; background: var(--ink); color: var(--paper); }
+.contact .label { color: rgba(245, 242, 236, .55); }
+.contact a { color: var(--paper); }
+.contact__title { margin: 28px 0 0; font-family: var(--serif); font-weight: 300; font-size: clamp(52px, 8.2vw, 132px); line-height: .98; letter-spacing: -.034em; }
+.contact__title em { font-style: italic; }
+.contact__p { margin: 36px 0 0; max-width: 46ch; font-size: 18px; color: rgba(245, 242, 236, .72); }
+.mail { position: relative; display: inline-flex; align-items: center; gap: 18px; margin-top: 56px; font-family: var(--serif); font-size: clamp(26px, 3.2vw, 46px); letter-spacing: -.01em; }
+.mail::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: currentColor; transform-origin: right; transition: transform .8s var(--ease); }
+.mail:hover::after { transform: scaleX(0); }
+.mail .ico { transition: transform .8s var(--ease); }
+.mail:hover .ico { transform: translate(6px, -6px); }
+.contact__links { display: flex; gap: 32px; margin-top: 44px; font-size: 15px; }
+.contact__links a { display: inline-flex; align-items: center; gap: 8px; }
+.foot { margin-top: 150px; padding-top: 24px; border-top: 1px solid rgba(245, 242, 236, .15); display: flex; justify-content: space-between; gap: 16px; font-size: 13px; color: rgba(245, 242, 236, .55); }
+.contact .foot a { color: rgba(245, 242, 236, .75); }

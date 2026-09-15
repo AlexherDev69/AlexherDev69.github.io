@@ -1,0 +1,61 @@
+---
+import EasyDietScreens from './visuals/EasyDietScreens.astro';
+import CrisisScore from './visuals/CrisisScore.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const STAGE_BAR_DELAY_SECONDS = 0.6;
+const { project } = Astro.props;
+const { stage } = project;
+---
+
+<div class="stage rv" data-open-case={project.slug}>
+  <div class="stage__bg" style={`background: ${project.tint}`}></div>
+  <div class="stage__view">
+    {stage.kind === 'shots' && stage.shots.map((shot) => (
+      <div class:list={['shot', { 'shot--lead': shot.lead }]}>
+        <div class="shot__in">
+          {shot.kind === 'image' ? (
+            <div class={shot.frame}>
+              <img src={shot.image.src} alt={shot.image.alt} width={shot.image.width} height={shot.image.height} loading="lazy" decoding="async" />
+            </div>
+          ) : (
+            <div class="tile">
+              <video muted loop playsinline preload="none" poster={shot.video.poster} width={shot.video.width} height={shot.video.height} aria-label={shot.video.label} data-autoplay>
+                <source src={shot.video.src} type="video/mp4" />
+              </video>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+
+    {stage.kind === 'window' && (
+      <div class="shot mm-shot">
+        <div class="shot__in">
+          <div class="win">
+            {stage.frames.map((frame) => (
+              <img src={frame.src} alt={frame.alt} width={frame.width} height={frame.height} loading="lazy" decoding="async" />
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    {stage.kind === 'extension' && (
+      <div class="bfl">
+        <div class="shot bfl__menu"><div class="shot__in"><img src={stage.menu.src} alt={stage.menu.alt} width={stage.menu.width} height={stage.menu.height} loading="lazy" decoding="async" /></div></div>
+        <div class="shot bfl__popup"><div class="shot__in"><img src={stage.popup.src} alt={stage.popup.alt} width={stage.popup.width} height={stage.popup.height} loading="lazy" decoding="async" /></div></div>
+        <div class="shot bfl__banner"><div class="shot__in"><img src={stage.banner.src} alt={stage.banner.alt} width={stage.banner.width} height={stage.banner.height} loading="lazy" decoding="async" /></div></div>
+      </div>
+    )}
+
+    {stage.kind === 'easydiet' && <EasyDietScreens shotClass="shot shot--lead" innerClass="shot__in" />}
+
+    {stage.kind === 'crisis' && <CrisisScore baseDelay={STAGE_BAR_DELAY_SECONDS} />}
+  </div>
+  <span class="stage__hint" aria-hidden="true">Ouvrir le projet</span>
+</div>

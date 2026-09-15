@@ -1,0 +1,46 @@
+/* Écrans EasyDiet redessinés */
+.ed-phone { width: 100%; padding: 22px 18px 20px; border-radius: 24px; background: #F7FAF8; color: #0F172A; font-size: 12px; line-height: 1.35; box-shadow: 0 34px 60px -30px rgba(15, 40, 30, .45), 0 0 0 1px rgba(15, 23, 42, .05); }
+.ed-k { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #059669; }
+.ed-h { margin: 2px 0 14px; font-size: 19px; font-weight: 600; }
+@property --ed { syntax: '<percentage>'; inherits: false; initial-value: 57%; }
+.ed-ring { width: 128px; height: 128px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(#10B981 var(--ed), #E5EAF0 0); }
+.anim .ed-ring { --ed: 0%; transition: --ed 1.8s var(--ease) .6s; }
+.anim .in .ed-ring { --ed: 57%; }
+.ed-ring__in { width: 98px; height: 98px; border-radius: 50%; background: #F7FAF8; display: grid; place-items: center; text-align: center; }
+.ed-ring__in b { display: block; font-size: 20px; }
+.ed-ring__in span, .ed-sub { font-size: 10px; color: #64748B; }
+.ed-macros { display: flex; flex-direction: column; gap: 9px; }
+.ed-row { display: flex; justify-content: space-between; font-size: 11px; }
+.ed-row span { color: #64748B; }
+.ed-bar { height: 6px; margin-top: 4px; border-radius: 4px; background: #E5EAF0; overflow: hidden; }
+.ed-bar i { display: block; height: 100%; border-radius: 4px; transform-origin: left; }
+.anim .ed-bar i { transform: scaleX(0); transition: transform 1.5s var(--ease) .8s; }
+.anim .in .ed-bar i { transform: none; }
+.ed-meal { margin-top: 14px; display: flex; gap: 10px; align-items: center; padding: 9px; border-radius: 12px; background: #fff; border: 1px solid #EEF1F5; }
+.ed-meal i { width: 34px; height: 34px; flex: none; border-radius: 9px; background: linear-gradient(135deg, #FDE68A, #F59E0B); }
+.ed-meal b { display: block; font-size: 11px; }
+.ed-weight { display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; }
+.ed-weight b { font-size: 28px; }
+.ed-pill { margin-left: auto; padding: 3px 9px; border-radius: 999px; background: #D1FAE5; color: #059669; font-size: 11px; font-weight: 600; }
+.ed-chart { padding: 12px; border-radius: 12px; background: #fff; border: 1px solid #EEF1F5; }
+.ed-chart svg { display: block; width: 100%; height: 84px; }
+.ed-line { fill: none; stroke: #10B981; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.ed-area { fill: rgba(16, 185, 129, .12); stroke: none; }
+.anim .ed-line { stroke-dashoffset: 100; transition: stroke-dashoffset 2s var(--ease) .7s; }
+.anim .in .ed-line { stroke-dashoffset: 0; }
+.ed-months { display: flex; justify-content: space-between; margin-top: 6px; font-size: 9px; color: #94A3B8; }
+.ed-goal { margin-top: 12px; display: flex; gap: 10px; align-items: center; }
+.ed-goal i { width: 34px; height: 34px; flex: none; border-radius: 9px; background: linear-gradient(135deg, #8B5CF6, #6366F1); }
+.ed-goal b { display: block; font-size: 11px; }
+
+/* Composition 5 minutes */
+.fm { width: 78%; display: flex; flex-direction: column; gap: 40px; }
+.fm__clock { display: flex; flex-direction: column; gap: 6px; }
+.fm__clock b { font-family: var(--serif); font-weight: 300; font-size: clamp(72px, 9vw, 132px); line-height: .9; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.fm__grid { display: flex; flex-direction: column; border-top: 1px solid var(--line-2); }
+.fm__row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 40px; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.fm__row b { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.fm__bar { height: 3px; background: var(--line); }
+.fm__bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; }
+.anim .fm__bar i { transform: scaleX(0); transition: transform 1.6s var(--ease); transition-delay: var(--d, .6s); }
+.anim .in .fm__bar i { transform: none; }

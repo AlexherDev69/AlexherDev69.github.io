@@ -1,0 +1,40 @@
+---
+import EasyDietScreens from './visuals/EasyDietScreens.astro';
+import CrisisScore from './visuals/CrisisScore.astro';
+import type { GalleryFrame, Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const GALLERY_BAR_DELAY_SECONDS = 1.2;
+const FRAME_CLASS: Record<GalleryFrame, string> = {
+  phone: 'g phone',
+  tile: 'g tile',
+  wide: 'g g--wide',
+  short: 'g g--short',
+};
+
+const { project } = Astro.props;
+const { gallery } = project;
+---
+
+<div class="wrap">
+  <div class="d-band" style={`background: ${project.tint}`}>
+    <div class="d-gallery">
+      {gallery.kind === 'images' && gallery.images.map((image, index) => (
+        <div class={FRAME_CLASS[gallery.frame]} style={`--i: ${index}`}>
+          <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+        </div>
+      ))}
+
+      {gallery.kind === 'easydiet' && <EasyDietScreens shotClass="g g--mock in" />}
+
+      {gallery.kind === 'crisis' && (
+        <div class="g g--fm in" style="--i: 0">
+          <CrisisScore baseDelay={GALLERY_BAR_DELAY_SECONDS} />
+        </div>
+      )}
+    </div>
+  </div>
+</div>

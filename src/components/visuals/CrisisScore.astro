@@ -1,0 +1,36 @@
+---
+/**
+ * Compte à rebours et grille de notation de 5 minutes.
+ * `baseDelay` décale l'animation des barres (en secondes).
+ */
+interface Props {
+  baseDelay: number;
+}
+
+const COUNTDOWN_START = '05:00';
+const BAR_STAGGER_SECONDS = 0.12;
+const CRITERIA = [
+  { label: 'Pertinence', points: 35 },
+  { label: 'Communication', points: 25 },
+  { label: 'Réactivité', points: 20 },
+  { label: 'Procédures', points: 20 },
+];
+const maxPoints = Math.max(...CRITERIA.map((criterion) => criterion.points));
+
+const { baseDelay } = Astro.props;
+---
+
+<div class="fm" role="img" aria-label="Simulation 5 minutes : compte à rebours et note par critère sur 100 points">
+  <div class="fm__clock"><span class="label">Temps restant</span><b data-countdown>{COUNTDOWN_START}</b></div>
+  <div class="fm__grid">
+    {CRITERIA.map((criterion, index) => (
+      <div class="fm__row">
+        <span>{criterion.label}</span>
+        <span class="fm__bar">
+          <i style={`width: ${Math.round((criterion.points / maxPoints) * 100)}%; --d: ${(baseDelay + index * BAR_STAGGER_SECONDS).toFixed(2)}s`}></i>
+        </span>
+        <b>{criterion.points}</b>
+      </div>
+    ))}
+  </div>
+</div>

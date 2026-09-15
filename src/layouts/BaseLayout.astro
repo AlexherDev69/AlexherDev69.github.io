@@ -1,5 +1,13 @@
 ---
-import '../styles/global.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/hanken-grotesk/wght.css';
+import '../styles/base.css';
+import '../styles/projects.css';
+import '../styles/visuals.css';
+import '../styles/sections.css';
+import '../styles/case-study.css';
+import '../styles/responsive.css';
 import { profile } from '../data/portfolio';
 
 interface Props {
@@ -9,72 +17,40 @@ interface Props {
 
 const {
   title = `${profile.name} · ${profile.role}`,
-  description = profile.tagline,
+  description = `${profile.role} à Lyon. Applications web et mobiles de l'idée à la mise en ligne : 10 000 pas, EasyDiet, MirrorMind et d'autres projets.`,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F5F2EC" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <!-- Open Graph / réseaux sociaux -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Anti-FOUC : applique le thème sauvegardé avant le premier rendu -->
+    <!-- Active les animations avant le premier rendu, sauf si le visiteur préfère les réduire -->
     <script is:inline>
-      (function () {
-        try {
-          const saved = localStorage.getItem('theme');
-          const prefersLight =
-            window.matchMedia('(prefers-color-scheme: light)').matches;
-          const theme = saved ?? (prefersLight ? 'light' : 'dark');
-          document.documentElement.setAttribute('data-theme', theme);
-        } catch (_) {}
-      })();
+      document.documentElement.classList.add(
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'static' : 'anim'
+      );
     </script>
   </head>
   <body>
-    <!-- Habillage MDR : scanlines CRT + halo teal -->
-    <div class="fx-scanlines" aria-hidden="true"></div>
-    <div class="fx-halo" aria-hidden="true"></div>
-
-    <div class="fx-content">
-      <slot />
-    </div>
-
-    <!-- Apparition progressive des éléments .reveal au scroll -->
-    <script is:inline>
-      (function () {
-        const els = document.querySelectorAll('.reveal');
-        if (!('IntersectionObserver' in window) || !els.length) {
-          els.forEach((el) => el.classList.add('is-visible'));
-          return;
-        }
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                io.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.12 }
-        );
-        els.forEach((el) => io.observe(el));
-      })();
+    <slot />
+    <script>
+      import '../scripts/main.ts';
     </script>
   </body>
 </html>

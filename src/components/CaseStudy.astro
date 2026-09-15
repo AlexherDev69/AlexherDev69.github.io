@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+import CaseGallery from './CaseGallery.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  nextTitle: string;
+}
+
+const { project, nextTitle } = Astro.props;
+const titleId = `case-title-${project.slug}`;
+---
+
+<article class="case" data-case={project.slug} aria-labelledby={titleId} hidden>
+  <div class="wrap d-hero">
+    <span class="label d-in" style="--i: 0">{project.kicker}</span>
+    <h2 id={titleId} class="d-title"><span>{project.title}</span></h2>
+    <p class="d-tag d-in" style="--i: 2">{project.tagline}</p>
+    <dl class="d-meta d-in" style="--i: 3">
+      {project.meta.map((fact) => (
+        <div><dt class="label">{fact.label}</dt><dd>{fact.value}</dd></div>
+      ))}
+    </dl>
+  </div>
+
+  <CaseGallery project={project} />
+
+  <div class="wrap d-content">
+    {project.problem && (
+      <section class="d-sec rv"><h3 class="d-sec__label">Le problème</h3><div class="d-sec__body"><p class="d-text">{project.problem}</p></div></section>
+    )}
+    <section class="d-sec rv"><h3 class="d-sec__label">La solution</h3><div class="d-sec__body"><p class="d-text">{project.solution}</p></div></section>
+    {project.features.length > 0 && (
+      <section class="d-sec rv">
+        <h3 class="d-sec__label">Fonctionnalités</h3>
+        <div class="d-sec__body"><ul class="d-list">{project.features.map((feature) => <li>{feature}</li>)}</ul></div>
+      </section>
+    )}
+    {project.challenges.length > 0 && (
+      <section class="d-sec rv">
+        <h3 class="d-sec__label">Défis techniques</h3>
+        <div class="d-sec__body">
+          <div class="d-ch">
+            {project.challenges.map((challenge, index) => (
+              <div>
+                <span class="d-ch__n">{String(index + 1).padStart(2, '0')}</span>
+                <h4>{challenge.title}</h4>
+                <p>{challenge.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+    {project.result && (
+      <section class="d-sec rv"><h3 class="d-sec__label">Résultat</h3><div class="d-sec__body"><p class="d-result">{project.result}</p></div></section>
+    )}
+    {project.social && (
+      <section class="d-sec rv">
+        <h3 class="d-sec__label">Sur X</h3>
+        <div class="d-sec__body d-social">
+          {project.social.video && (
+            <div class="d-video">
+              <video muted loop playsinline controls preload="none" poster={project.social.video.poster} width={project.social.video.width} height={project.social.video.height} aria-label={project.social.video.label} data-autoplay>
+                <source src={project.social.video.src} type="video/mp4" />
+              </video>
+            </div>
+          )}
+          <div>
+            <p class="d-text">{project.social.text}</p>
+            <div class="links">
+              {project.social.links.map((link) => (
+                <a class="btn btn--ghost" href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<Icon name="external" size={16} /></a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+    <section class="d-sec rv">
+      <h3 class="d-sec__label">Stack</h3>
+      <div class="d-sec__body">
+        <ul class="chips">{project.stack.map((item) => <li class="chip">{item}</li>)}</ul>
+        {project.links.length > 0 && (
+          <div class="links">
+            {project.links.map((link) => (
+              <a class="btn" href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<Icon name="external" size={16} /></a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <button type="button" class="next" data-case-step="1">
+      <span class="label">Projet suivant</span>
+      <span class="next__t"><span>{nextTitle}</span><Icon name="arrow-right" size={48} /></span>
+    </button>
+  </div>
+</article>
