@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#071417; }
+  @keyframes pv-scan { 0%{transform:translateY(0)} 100%{transform:translateY(4px)} }
+  @keyframes pv-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+<div style="{{ themeVars }}">
+<div style="min-height:100vh;background:var(--bg,#071417);color:var(--text,#c9ddd9);font-family:'Archivo',system-ui,sans-serif;position:relative;overflow-x:hidden;">
+
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:8;pointer-events:none;opacity:.4;background:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.09) 2px 3px);animation:pv-scan 1.4s steps(2) infinite;"></div>
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(1000px circle at 50% -14%, var(--halo,rgba(77,225,193,.10)), transparent 62%);"></div>
+
+  <div style="position:relative;z-index:1;">
+
+    <!-- TOPBAR -->
+    <header style="position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:var(--headbg,rgba(7,20,23,.82));border-bottom:1px solid var(--line,rgba(159,224,213,.14));">
+      <div style="max-width:1180px;margin:0 auto;padding:14px clamp(16px,4vw,40px);display:flex;align-items:center;gap:16px;">
+        <a href="Portfolio%20Severance.dc.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted,#6f938d);display:inline-flex;align-items:center;gap:8px;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">← Retour au dossier</a>
+        <span style="margin:0 auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#4de1c1);">◵ MDR · Archive des dossiers</span>
+        <button onClick="{{ toggleTheme }}" aria-label="Innie / Outie" style="cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;height:32px;padding:0 12px;background:transparent;border:1px solid var(--line-strong,rgba(159,224,213,.28));color:var(--strong,#eafcf6);">{{ themeLabel }}</button>
+      </div>
+    </header>
+
+    <!-- STATUS ROW -->
+    <div style="max-width:1180px;margin:0 auto;padding:22px clamp(16px,4vw,40px) 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg,#071417);background:{{ catColor }};padding:6px 11px;">{{ catLabel }}</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:var(--muted,#6f938d);">{{ counter }}</span>
+      <div style="margin-left:auto;display:flex;gap:7px;align-items:center;">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="8">
+          <button onClick="{{ d.on }}" aria-label="Aller au dossier" style="cursor:pointer;border:none;padding:0;width:{{ d.w }};height:9px;background:{{ d.color }};transition:width .25s ease,background-color .25s ease;"></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <main style="max-width:1180px;margin:0 auto;padding:26px clamp(16px,4vw,40px) 120px;">
+      <article data-card style="{{ cardStyle }}">
+
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent,#4de1c1);">{{ cur.idHex }} · {{ cur.context }}</div>
+        <h1 style="margin:14px 0 0;font-weight:700;font-size:clamp(2.2rem,5.2vw,3.8rem);line-height:1.03;letter-spacing:-.02em;color:var(--strong,#eafcf6);">{{ cur.title }}</h1>
+        <p style="margin:16px 0 0;max-width:64ch;font-size:clamp(16px,2vw,19px);line-height:1.65;color:var(--text,#c9ddd9);">{{ cur.tagline }}</p>
+
+        <sc-if value="{{ hasHighlight }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:20px;display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--accent,#4de1c1);border:1px solid var(--accent,#4de1c1);padding:9px 14px;">★ {{ cur.highlight }}</div>
+        </sc-if>
+
+        <!-- APERÇU : gallery -->
+        <sc-if value="{{ hasGallery }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:40px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);margin-bottom:16px;">&gt; Aperçu</div>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;">
+              <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+                <button onClick="{{ g.on }}" style="cursor:pointer;border:1px solid var(--line-strong,rgba(159,224,213,.28));background:var(--terminal,#04171a);padding:0;overflow:hidden;position:relative;height:300px;line-height:0;transition:border-color .2s ease;" onMouseOver="{{ thumbOver }}" onMouseOut="{{ thumbOut }}">
+                  <img src="{{ g.src }}" alt="{{ g.alt }}" loading="lazy" style="height:300px;width:auto;display:block;object-fit:cover;" />
+                  <span style="position:absolute;top:8px;right:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--accent,#4de1c1);background:rgba(4,23,26,.82);padding:3px 6px;">⛶ {{ g.num }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- APERÇU : EasyDiet mockups -->
+        <sc-if value="{{ isEasyDiet }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:40px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);margin-bottom:16px;">&gt; Aperçu</div>
+            <div style="display:flex;flex-wrap:wrap;gap:22px;padding:28px;background:linear-gradient(160deg, rgba(16,185,129,.10), var(--terminal,#04171a));border:1px solid var(--line,rgba(159,224,213,.14));border-radius:14px;justify-content:center;">
+              <!-- phone 1 -->
+              <div style="width:230px;background:#ffffff;border-radius:26px;padding:10px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6);color:#0f172a;">
+                <div style="border-radius:18px;overflow:hidden;background:#f5f7fa;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;font-size:11px;font-weight:700;color:#0f172a;font-family:'IBM Plex Mono',monospace;"><span>9:41</span><span style="display:flex;gap:3px;"><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i></span></div>
+                  <div style="padding:6px 16px 18px;">
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#10B981;font-weight:700;">Aujourd'hui</div>
+                    <div style="font-size:19px;font-weight:700;margin:2px 0 14px;">Tableau de bord</div>
+                    <div style="display:grid;place-items:center;margin-bottom:16px;">
+                      <div style="width:130px;height:130px;border-radius:50%;background:conic-gradient(#10B981 57%, #e5eaf0 0);display:grid;place-items:center;">
+                        <div style="width:100px;height:100px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;">
+                          <div><b style="font-size:20px;">1 240</b><br><span style="font-size:10px;color:#64748B;">/ 2 175 kcal</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                      <div><div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;"><span style="color:#64748B;">Protéines</span><b>78 / 136 g</b></div><div style="height:6px;background:#e5eaf0;border-radius:4px;margin-top:4px;"><i style="display:block;height:100%;width:57%;background:#F43F5E;border-radius:4px;"></i></div></div>
+                      <div><div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;"><span style="color:#64748B;">Glucides</span><b>140 / 245 g</b></div><div style="height:6px;background:#e5eaf0;border-radius:4px;margin-top:4px;"><i style="display:block;height:100%;width:57%;background:#F59E0B;border-radius:4px;"></i></div></div>
+                      <div><div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;"><span style="color:#64748B;">Lipides</span><b>42 / 73 g</b></div><div style="height:6px;background:#e5eaf0;border-radius:4px;margin-top:4px;"><i style="display:block;height:100%;width:57%;background:#0EA5E9;border-radius:4px;"></i></div></div>
+                    </div>
+                    <div style="margin-top:14px;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #eef1f5;border-radius:12px;padding:9px;"><div style="width:38px;height:38px;border-radius:9px;background:#eafaf3;display:grid;place-items:center;font-size:18px;">🥞</div><div><b style="font-size:12px;">Pancakes protéinés banane</b><br><span style="font-size:10px;color:#64748B;">570 kcal · 20 min</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <!-- phone 2 -->
+              <div style="width:230px;background:#ffffff;border-radius:26px;padding:10px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6);color:#0f172a;">
+                <div style="border-radius:18px;overflow:hidden;background:#f5f7fa;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;font-size:11px;font-weight:700;color:#0f172a;font-family:'IBM Plex Mono',monospace;"><span>9:41</span><span style="display:flex;gap:3px;"><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i><i style="width:5px;height:5px;border-radius:50%;background:#0f172a;display:inline-block;"></i></span></div>
+                  <div style="padding:6px 16px 18px;">
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#10B981;font-weight:700;">Suivi</div>
+                    <div style="font-size:19px;font-weight:700;margin:2px 0 14px;">Mon poids</div>
+                    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px;"><b style="font-size:30px;">78,3</b><span style="font-size:11px;color:#64748B;font-weight:700;">kg</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#10B981;background:#eafaf3;padding:3px 9px;border-radius:999px;">− 4,2 kg</span></div>
+                    <div style="background:#fff;border:1px solid #eef1f5;border-radius:12px;padding:12px;">
+                      <svg viewBox="0 0 180 96" preserveAspectRatio="none" style="width:100%;height:80px;display:block;">
+                        <defs><linearGradient id="edFill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10B981" stop-opacity="0.28"/><stop offset="1" stop-color="#10B981" stop-opacity="0"/></linearGradient></defs>
+                        <polyline points="4,20 34,30 64,28 94,46 124,58 154,66 176,76" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polygon points="4,20 34,30 64,28 94,46 124,58 154,66 176,76 176,96 4,96" fill="url(#edFill2)"/>
+                        <circle cx="176" cy="76" r="4" fill="#10B981" stroke="#fff" stroke-width="2"/>
+                      </svg>
+                      <div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-top:6px;"><span>Mars</span><span>Avr</span><span>Mai</span><span>Juin</span></div>
+                    </div>
+                    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;"><div style="width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#8B5CF6,#6366F1);display:grid;place-items:center;font-size:18px;">🎯</div><div><b style="font-size:12px;">Objectif atteint vers</b><br><span style="font-size:10px;color:#64748B;">mi-septembre · 68 kg</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- TEXT SECTIONS -->
+        <div style="margin-top:44px;display:grid;gap:34px;">
+          <sc-if value="{{ hasProblem }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);margin-bottom:10px;">&gt; Le problème</div>
+              <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.8;color:var(--text,#c9ddd9);">{{ cur.problem }}</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasSolution }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#4de1c1);margin-bottom:10px;">&gt; La solution</div>
+              <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.8;color:var(--text,#c9ddd9);">{{ cur.solution }}</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasFeatures }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);margin-bottom:14px;">&gt; Fonctionnalités</div>
+              <ul style="margin:0;padding:0;list-style:none;display:grid;gap:11px;">
+                <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+                  <li style="position:relative;padding-left:22px;max-width:70ch;font-size:15.5px;line-height:1.7;color:var(--text,#c9ddd9);"><span style="position:absolute;left:0;top:7px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent,#4de1c1);">›</span>{{ f }}</li>
+                </sc-for>
+              </ul>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasChallenges }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);margin-bottom:14px;">&gt; Défis techniques</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line,rgba(159,224,213,.14));border:1px solid var(--line,rgba(159,224,213,.14));">
+                <sc-for list="{{ challenges }}" as="c" hint-placeholder-count="4">
+                  <div style="background:var(--soft,#0c1e22);padding:18px 20px;">
+                    <div style="display:flex;gap:9px;align-items:baseline;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent,#4de1c1);">{{ c.no }}</span><h3 style="font-weight:600;font-size:1.05rem;color:var(--strong,#eafcf6);line-height:1.25;">{{ c.title }}</h3></div>
+                    <p style="margin:10px 0 0;font-size:13.5px;line-height:1.65;color:var(--muted,#6f938d);">{{ c.description }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ true }}">
+            <div style="border:1px solid var(--accent,#4de1c1);background:var(--accentSoft,rgba(77,225,193,.08));padding:22px 24px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#4de1c1);margin-bottom:10px;">&gt; Résultat — raffiné 100%</div>
+              <p style="margin:0;max-width:72ch;font-size:16px;line-height:1.8;color:var(--text,#c9ddd9);">{{ cur.result }}</p>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- FOOTER : stack + links -->
+        <div style="margin-top:40px;padding-top:26px;border-top:1px solid var(--line,rgba(159,224,213,.14));display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;max-width:70%;">
+            <sc-for list="{{ stack }}" as="t" hint-placeholder-count="4">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--muted,#6f938d);border:1px solid var(--line,rgba(159,224,213,.14));padding:5px 9px;">{{ t }}</span>
+            </sc-for>
+          </div>
+          <sc-if value="{{ hasLinks }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+              <sc-for list="{{ links }}" as="l" hint-placeholder-count="1">
+                <a href="{{ l.url }}" target="_blank" rel="noopener" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--bg,#071417);background:var(--accent,#4de1c1);padding:9px 13px;transition:opacity .2s;" onMouseOver="{{ btnOver }}" onMouseOut="{{ btnOut }}">{{ l.label }} ↗</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- NAV ARROWS -->
+    <button onClick="{{ prev }}" aria-label="Dossier précédent" style="position:fixed;left:clamp(8px,2vw,26px);top:50%;transform:translateY(-50%);z-index:15;cursor:pointer;width:56px;height:56px;border-radius:50%;backdrop-filter:blur(8px);background:var(--headbg,rgba(7,20,23,.72));border:1px solid var(--line-strong,rgba(159,224,213,.28));color:var(--strong,#eafcf6);font-size:20px;display:grid;place-items:center;transition:border-color .2s,background-color .2s;" onMouseOver="{{ arrowOver }}" onMouseOut="{{ arrowOut }}">←</button>
+    <button onClick="{{ next }}" aria-label="Dossier suivant" style="position:fixed;right:clamp(8px,2vw,26px);top:50%;transform:translateY(-50%);z-index:15;cursor:pointer;width:56px;height:56px;border-radius:50%;backdrop-filter:blur(8px);background:var(--headbg,rgba(7,20,23,.72));border:1px solid var(--line-strong,rgba(159,224,213,.28));color:var(--strong,#eafcf6);font-size:20px;display:grid;place-items:center;transition:border-color .2s,background-color .2s;" onMouseOver="{{ arrowOver }}" onMouseOut="{{ arrowOut }}">→</button>
+
+    <!-- LIGHTBOX -->
+    <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeLb }}" style="position:fixed;inset:0;z-index:40;background:rgba(3,10,12,.92);backdrop-filter:blur(6px);display:grid;place-items:center;padding:40px;">
+        <div style="position:absolute;top:20px;left:0;right:0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#4de1c1);">{{ lbCounter }}</div>
+        {{ lbImg }}
+        <div style="position:absolute;bottom:26px;left:0;right:0;text-align:center;max-width:70ch;margin:0 auto;padding:0 20px;font-size:13px;color:var(--muted,#9aa);">{{ lbAlt }}</div>
+        <button onClick="{{ lbPrevBtn }}" aria-label="Précédent" style="position:fixed;left:18px;top:50%;transform:translateY(-50%);cursor:pointer;width:52px;height:52px;border-radius:50%;background:rgba(7,20,23,.7);border:1px solid var(--line-strong,rgba(159,224,213,.28));color:#eafcf6;font-size:20px;">←</button>
+        <button onClick="{{ lbNextBtn }}" aria-label="Suivant" style="position:fixed;right:18px;top:50%;transform:translateY(-50%);cursor:pointer;width:52px;height:52px;border-radius:50%;background:rgba(7,20,23,.7);border:1px solid var(--line-strong,rgba(159,224,213,.28));color:#eafcf6;font-size:20px;">→</button>
+        <button onClick="{{ closeLb }}" aria-label="Fermer" style="position:fixed;top:16px;right:18px;cursor:pointer;width:42px;height:42px;border-radius:50%;background:rgba(7,20,23,.7);border:1px solid var(--line-strong,rgba(159,224,213,.28));color:#eafcf6;font-family:'IBM Plex Mono',monospace;font-size:14px;">✕</button>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { index: 0, phase: 'in', theme: 'dark', lbOpen: false, lbIndex: 0 };
+
+  componentDidMount() {
+    this._dir = 1;
+    try {
+      const saved = localStorage.getItem('ah-sev-theme');
+      if (saved === 'light' || saved === 'dark') this.setState({ theme: saved });
+    } catch (e) {}
+    // deep link
+    const slug = (location.hash || '').replace('#', '');
+    if (slug) {
+      const i = this.projects().findIndex((p) => p.slug === slug);
+      if (i >= 0) this.setState({ index: i });
+    }
+    this._onKey = (e) => {
+      if (this.state.lbOpen) {
+        if (e.key === 'Escape') this.setState({ lbOpen: false });
+        else if (e.key === 'ArrowRight') this.lbStep(1);
+        else if (e.key === 'ArrowLeft') this.lbStep(-1);
+        return;
+      }
+      if (e.key === 'ArrowRight') this.go(1);
+      else if (e.key === 'ArrowLeft') this.go(-1);
+    };
+    window.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() { if (this._onKey) window.removeEventListener('keydown', this._onKey); }
+
+  projects() {
+    return [
+      {
+        slug: 'mateapp', title: 'MateApp', category: 'Pro', context: 'Freelance chez IDBUCKS',
+        tagline: 'Application mobile de réseau social (Android/iOS) avec back-office web.',
+        solution: "Application mobile type réseau social développée en Flutter, doublée d'un back-office Next.js pour la gestion des contenus et des utilisateurs. Projet mené de la conception au déploiement, en collaboration directe avec le client et le CTO.",
+        stack: ['Flutter', 'Dart', 'Cubit', 'Next.js', 'Node.js'],
+        gallery: [
+          { src: 'assets/mateApp/cover.png', alt: "Écran d'accueil : le rituel du jeudi entre membres du même niveau." },
+          { src: 'assets/mateApp/membership.png', alt: "Sélection à l'entrée : adhésion validée, 1 candidat sur 3 accepté." },
+          { src: 'assets/mateApp/table.png', alt: 'Table du jeudi : événement avec 6 membres sélectionnés, date et lieu.' },
+          { src: 'assets/mateApp/profiles.png', alt: 'Fil de profils sélectionnés du jour, avec la navigation principale.' },
+          { src: 'assets/mateApp/profile.png', alt: "Profil détaillé : prompts et centres d'intérêt pour lancer la conversation." },
+        ],
+        links: [
+          { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.mateappes.mate&hl=fr' },
+          { label: 'App Store', url: 'https://apps.apple.com/pt/app/mate-curated-social-circle/id6669137503?l=en-GB' },
+        ],
+      },
+      {
+        slug: 'keepture', title: 'Keepture', category: 'Pro', context: 'Freelance chez IDBUCKS',
+        tagline: 'Messagerie photo pour regrouper, partager et commenter ses photos et vidéos avec ses proches, dans des albums communs.',
+        solution: "Keepture est une application de messagerie photo qui permet de regrouper et d'organiser ses photos et vidéos avec celles de ses proches dans des albums communs. On peut aussi prendre et partager des photos et vidéos en temps réel, et réagir à celles de ses proches dans les albums (likes, commentaires et partages).",
+        features: [
+          'Capture et partage de photos et vidéos en temps réel.',
+          'Groupes privés avec ses proches, façon messagerie photo.',
+          'Albums communs pour regrouper et organiser les médias.',
+          'Réactions sur chaque publication : likes, commentaires et partages.',
+        ],
+        gallery: [
+          { src: 'assets/keepture/capture.png', alt: 'Capture et partage instantané de photos et vidéos.' },
+          { src: 'assets/keepture/groups.png', alt: 'Messagerie photo : groupes créés avec ses proches.' },
+          { src: 'assets/keepture/albums.png', alt: "Liste des albums partagés au sein d'un groupe." },
+          { src: 'assets/keepture/grid.png', alt: 'Regroupement des photos et vidéos de tous les proches dans un album.' },
+          { src: 'assets/keepture/reactions.png', alt: 'Réactions sur une publication : likes, commentaires et partages.' },
+        ],
+        stack: ['React Native', 'TypeScript'],
+      },
+      {
+        slug: 'acqua-protection', title: 'Acqua Protection', category: 'Pro', context: 'Freelance chez IDBUCKS',
+        tagline: "Plateforme web de gestion accompagnée d'une application mobile professionnelle.",
+        solution: 'Plateforme web de gestion développée en Next.js, complétée par une application mobile professionnelle. Intégration depuis les maquettes Figma et livraison en autonomie complète.',
+        stack: ['Next.js', 'Node.js', 'React Native', 'Figma'],
+      },
+      {
+        slug: 'plateforme-esport-nicecactus', title: 'Plateforme de tournois Esport', category: 'Pro', context: 'CDI chez Nicecactus',
+        tagline: 'Plateforme de tournois Esport à grande échelle, développée en équipe de 10.',
+        solution: "Conception et implémentation des fonctionnalités core de gestion des tournois au sein d'une équipe de 10 développeurs, en parallèle de la gestion de projets événementiels Esport B2B/B2C.",
+        stack: ['PHP', 'JavaScript'],
+      },
+      {
+        slug: 'boost-for-letterboxd', title: 'Boost for Letterboxd', category: 'Perso', context: 'Projet personnel · Extension Chrome',
+        tagline: 'Extension Chrome qui remonte Letterboxd en tête des résultats Google.',
+        highlight: "Validée par l'équipe Letterboxd en personne.",
+        problem: 'Letterboxd est la référence des cinéphiles, mais ses pages sont souvent enterrées dans les résultats Google, sous les plateformes de streaming et les agrégateurs. Il fallait scroller pour y accéder.',
+        solution: 'Une extension Chrome légère qui identifie les recherches cinéma et remonte Letterboxd en tête, directement dans la page de résultats.',
+        features: [
+          'Une bannière avec lien direct vers la recherche Letterboxd, animée en slide-in.',
+          'Un boost visuel qui remonte et surligne les résultats Letterboxd déjà présents.',
+          "Une recherche par clic droit sur n'importe quel texte sélectionné, sur n'importe quel site.",
+        ],
+        challenges: [
+          { title: 'Détection multilingue robuste', description: "Un système à quatre sources de signaux (mots-clés en anglais, français, allemand, espagnol, italien, portugais, plus l'analyse du Knowledge Panel et des category chips de Google) pour minimiser les faux négatifs." },
+          { title: 'Nettoyage de requête', description: 'Suppression des mots-clés de détection et des mots parasites via des regex triées par longueur, pour envoyer à Letterboxd un titre propre.' },
+          { title: 'Résilience au DOM dynamique', description: 'Google charge ses résultats de façon asynchrone. Un MutationObserver débouncé (150 ms) retraite la page sans dégrader les performances ni dupliquer les injections.' },
+          { title: 'Qualité et maintenabilité', description: 'Architecture modulaire (content script, service worker, popup, storage), TypeScript en mode strict, et une suite de 63 tests unitaires (Vitest + jsdom).' },
+          { title: 'Respect de la vie privée', description: 'Aucune donnée collectée, aucun tracker, aucune analytics. Préférences via chrome.storage.sync. Permissions réduites au strict minimum.' },
+        ],
+        result: 'Une extension publiée sur le Chrome Web Store, maintenue et documentée, illustrant la maîtrise de bout en bout d\'un produit navigateur (conception, développement, tests, publication).',
+        stack: ['TypeScript (strict)', 'esbuild', 'Vitest + jsdom', 'Manifest V3', 'ESLint', 'Prettier'],
+        gallery: [
+          { src: 'assets/boostforletterboxd/google-banner.png', alt: 'Bannière Letterboxd remontée en tête des résultats de recherche Google.' },
+          { src: 'assets/boostforletterboxd/context-menu.png', alt: 'Recherche Letterboxd par clic droit sur un texte sélectionné.' },
+          { src: 'assets/boostforletterboxd/popup.png', alt: "Popup de configuration de l'extension : fonctionnalités, langues et accessibilité." },
+        ],
+        links: [{ label: 'Chrome Web Store', url: 'https://chromewebstore.google.com/detail/boost-for-letterboxd/jfnkjbammnogkcfpflgobdjadmcbjigd' }],
+      },
+      {
+        slug: 'easydiet', title: 'EasyDiet', category: 'Perso', context: 'Projet personnel · Application mobile',
+        tagline: 'Application Flutter de nutrition qui compose un plan de repas sur mesure, génère la liste de courses et suit la perte de poids. Entièrement hors ligne, sans compte, sans publicité.',
+        highlight: 'Publiée sur le Google Play Store.', preview: 'easydiet',
+        problem: 'Les applications de nutrition sérieuses sont presque toutes payantes, saturées de publicités et bloquées derrière un compte en ligne. Elles hébergent surtout des données de santé sensibles sur leurs serveurs. Suivre un régime au quotidien ne devrait pas coûter sa vie privée.',
+        solution: "EasyDiet fait tout le travail localement. À partir d'un profil (poids, taille, objectif, activité), l'application calcule les besoins caloriques et compose un programme de repas complet, la liste de courses associée et le suivi de la progression. Aucune connexion, aucun compte, aucune donnée qui quitte l'appareil.",
+        features: [
+          'Plan de repas personnalisé (formule Mifflin-St Jeor), adapté au régime (omnivore, végétarien, vegan) et aux allergies.',
+          'Plus de 90 recettes en photo, instructions pas à pas et mode cuisine (minuteur). Cuisines française, indienne, japonaise, espagnole.',
+          'Liste de courses automatique : ingrédients agrégés et triés par rayon de supermarché.',
+          "Suivi du poids : graphiques d'évolution et projection de la date d'objectif au rythme actuel.",
+        ],
+        challenges: [
+          { title: 'Génération sous contraintes', description: "Un moteur de ~940 lignes sélectionne les recettes en respectant une cible calorique à ±10 %, le régime, les allergènes et les viandes exclues, sans répétition dans la semaine." },
+          { title: 'Agrégation des courses', description: "Normalisation de plus de 500 synonymes d'ingrédients, conversion d'unités et fusion en une seule ligne par ingrédient." },
+          { title: 'Architecture offline-first', description: 'Clean Architecture, base Drift / SQLite à 9 tables, injection GetIt et état géré au Cubit / Bloc. Zéro appel réseau.' },
+          { title: 'Optimiseur de batch cooking', description: 'Entrelacement des phases (préparation, cuisson, finition) entre plusieurs recettes pour cuisiner plusieurs jours en une session.' },
+          { title: 'Design system Material 3', description: 'Thème émeraude sur mesure, glassmorphism, animations et illustrations CustomPaint. Interface entièrement en français.' },
+          { title: 'Qualité et logique métier', description: 'Tests unitaires sur le moteur nutritionnel, séparation stricte logique / UI, responsabilité unique par fonction.' },
+        ],
+        result: "Une application mobile complète et publiée : portage d'une app Kotlin native vers Flutter. De l'onboarding au suivi de poids, une logique métier nutrition non triviale, 100 % hors ligne et respectueuse de la vie privée.",
+        stack: ['Flutter', 'Dart', 'Cubit / Bloc', 'Drift (SQLite)', 'GetIt', 'go_router', 'Material 3', 'fl_chart', 'Clean Architecture'],
+        links: [{ label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.easydiet.easydiet' }],
+      },
+      {
+        slug: 'mirrormind', title: 'MirrorMind', category: 'Perso', context: 'Projet personnel · Desktop + serveur MCP',
+        tagline: "Application Windows qui détecte un téléphone Android en USB, diffuse son écran en temps réel et l'expose à Claude Code via un serveur MCP, pour que l'IA puisse voir et piloter le téléphone.",
+        highlight: 'Application de bureau open source.',
+        problem: "Tester et déboguer une app mobile est laborieux : configurer scrcpy à la main, jongler entre le téléphone et l'écran. Et un assistant IA comme Claude Code ne voit pas le téléphone : il ne peut ni tester une app mobile, ni la déboguer visuellement.",
+        solution: "MirrorMind détecte le téléphone dès qu'il est branché et affiche son écran instantanément (protocole scrcpy, décodage H.264 matériel). Surtout, il expose un serveur MCP qui donne à Claude Code des outils natifs pour voir et agir : capture d'écran, tap, swipe, saisie, navigation, OCR.",
+        features: [
+          "Stream automatique en USB : branché, l'écran apparaît instantanément. Contrôle tactile, clavier et scroll depuis le PC.",
+          'Serveur MCP : plus de 15 outils exposés à Claude Code (screenshot, tap, swipe, saisie, deep links, OCR, batch d\'actions).',
+          'Audio, WiFi et presse-papier : son forwardé en Opus, mode sans fil (adb TCP/IP + mDNS), copier-coller PC vers téléphone.',
+          'Onboarding par marque (Samsung, Xiaomi, Pixel), system tray, mini-player, enregistrement H.264 vers MP4 et logcat temps réel.',
+        ],
+        challenges: [
+          { title: 'Protocole scrcpy bas niveau', description: "Implémentation du wire protocol : nom d'appareil 64 octets, paquets [PTS + taille + H.264], trois sockets, décodage matériel via WebCodecs dans la WebView." },
+          { title: 'Serveur MCP embarqué', description: "Bundling d'un serveur Node self-contained (sharp, tesseract) dans l'installeur Tauri, résolu au runtime. Le MCP fonctionne sans repo source." },
+          { title: 'API interne durcie', description: 'Serveur HTTP lié à 127.0.0.1, token 32 octets, validation du Host contre le DNS-rebinding, CORS strict, validation Zod et rate limiting.' },
+          { title: 'Pont IA vers téléphone', description: "Traduction des intentions de Claude en actions ADB / scrcpy : coordonnées en pourcentage, attente intelligente de changement d'écran, OCR de secours." },
+          { title: "Tauri plutôt qu'Electron", description: 'Backend Rust + WebView2 : installeur ~5 Mo et ~30 Mo de RAM, là où l\'équivalent Electron pèserait 150 Mo.' },
+          { title: 'Robustesse temps réel', description: 'Auto-reconnexion USB / WiFi, activation du tcpip séquencée avant le stream, adaptation du ratio de fenêtre.' },
+        ],
+        result: "Une application de bureau complète : streaming Android temps réel et intégration IA native. Claude Code peut voir et piloter un vrai téléphone (debug visuel, test d'app mobile, pair-programming).",
+        gallery: [{ src: 'assets/mirrorMind/MirrorMind-demo-1.5x.gif', alt: 'Démonstration : Claude Code voit et pilote le téléphone Android en temps réel depuis Windows.' }],
+        stack: ['Tauri 2', 'Rust', 'React 19', 'TypeScript', 'Zustand', 'Tailwind CSS 4', 'WebCodecs', 'scrcpy', 'MCP SDK', 'Node.js', 'Zod'],
+        links: [{ label: 'GitHub', url: 'https://github.com/AlexherDev69/MirrorMind' }],
+      },
+      {
+        slug: '5-minutes', title: '5 minutes', category: 'Perso', context: 'Projet personnel · SaaS B2B piloté par IA',
+        tagline: "Tester en 5 minutes le sang-froid d'un salarié face à la crise.",
+        solution: "Un salarié est mis en situation de crise simulée. Une IA joue le scénario, s'adapte en temps réel à chaque décision, mesure le temps de réaction et note la performance sur une grille de 100 points. À la sortie : un débrief actionnable.",
+        features: [
+          'Cadrage : choix du secteur et du type de crise (sanitaire, cyber, RH, réputation, environnement).',
+          "Scénario généré par l'IA, ancré dans des cas réels grâce au RAG.",
+          'Boucle sous pression sur 8 à 10 tours : réponses chronométrées et crise qui évolue selon les décisions.',
+          'Débrief complet : scores par critère et rapport PDF téléchargeable.',
+        ],
+        challenges: [
+          { title: 'RAG souverain', description: "L'IA cite les procédures internes avec source et numéro de page. Recherche hybride dense et lexicale (RRF), hébergement en Europe, conforme RGPD." },
+          { title: 'Multi-tenant B2B', description: 'Isolation par entreprise, espaces équipe, rôles admin et superadmin, statistiques agrégées.' },
+          { title: 'Scénarios adaptatifs', description: "L'IA ajuste chaque situation aux réponses du salarié, en s'inspirant de cas réels." },
+          { title: 'Rapports PDF', description: "Débrief de simulation, DUERP et statistiques d'équipe générés à la volée." },
+          { title: 'Dictée vocale', description: "Réponses à l'oral transcrites en temps réel via Voxtral, pour coller à la réalité d'une cellule de crise." },
+          { title: 'Industrialisé', description: 'Monorepo Turborepo, conteneurisation Docker, CI/CD GitHub Actions et déploiement sur VPS.' },
+        ],
+        result: 'Chaque simulation débouche sur une évaluation sur 100 points (pertinence 35, communication 25, réactivité 20, procédures 20) et un rapport PDF actionnable.',
+        stack: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Stripe', 'Python', 'FastAPI', 'RAG', 'LangChain', 'Qdrant', 'Mistral', 'Voxtral', 'Docker'],
+      },
+    ];
+  }
+
+  themeVarsFor(theme) {
+    if (theme === 'light') {
+      return {
+        '--bg': '#eef1ee', '--soft': '#ffffff', '--terminal': '#dfe6e3', '--headbg': 'rgba(238,241,238,.88)',
+        '--line': 'rgba(16,40,44,.14)', '--line-strong': 'rgba(16,40,44,.26)',
+        '--text': '#20302e', '--strong': '#0b1a19', '--muted': '#5c6f6c', '--accent': '#0e8f79',
+        '--accentSoft': 'rgba(14,143,121,.08)', '--halo': 'rgba(14,143,121,.14)', '--perso': '#2f7fb0',
+      };
+    }
+    return {
+      '--bg': '#071417', '--soft': '#0c1e22', '--terminal': '#04171a', '--headbg': 'rgba(7,20,23,.8)',
+      '--line': 'rgba(159,224,213,.14)', '--line-strong': 'rgba(159,224,213,.28)',
+      '--text': '#c9ddd9', '--strong': '#eafcf6', '--muted': '#6f938d', '--accent': '#4de1c1',
+      '--accentSoft': 'rgba(77,225,193,.08)', '--halo': 'rgba(77,225,193,.32)', '--perso': '#7db8e8',
+    };
+  }
+
+  go(dir) {
+    const n = this.projects().length;
+    const i = (this.state.index + dir + n) % n;
+    this.goTo(i, dir);
+  }
+  goTo(i, dir) {
+    if (i === this.state.index) return;
+    this._dir = dir;
+    this.setState({ phase: 'out' });
+    setTimeout(() => {
+      this.setState({ index: i, phase: 'pre' });
+      try { history.replaceState(null, '', '#' + this.projects()[i].slug); } catch (e) {}
+      setTimeout(() => this.setState({ phase: 'in' }), 30);
+    }, 170);
+  }
+
+  openLb(i) { this.setState({ lbOpen: true, lbIndex: i }); }
+  lbStep(d) {
+    const g = this.projects()[this.state.index].gallery || [];
+    if (!g.length) return;
+    this.setState({ lbIndex: (this.state.lbIndex + d + g.length) % g.length });
+  }
+
+  renderVals() {
+    const projects = this.projects();
+    const idx = this.state.index;
+    const p = projects[idx];
+    const n = projects.length;
+    const theme = this.state.theme;
+    const vars = this.themeVarsFor(theme);
+    const catColor = p.category === 'Pro' ? (vars['--accent']) : (vars['--perso']);
+
+    const dir = this._dir || 1;
+    const phase = this.state.phase;
+    let anim;
+    if (phase === 'out') anim = { opacity: 0, transform: `translateX(${-dir * 20}px)`, transition: 'opacity .16s ease, transform .16s ease' };
+    else if (phase === 'pre') anim = { opacity: 0, transform: `translateX(${dir * 20}px)`, transition: 'none' };
+    else anim = { opacity: 1, transform: 'none', transition: 'opacity .34s ease, transform .34s ease' };
+    const cardStyle = Object.assign({ maxWidth: '880px', margin: '0 auto', width: '100%' }, anim);
+
+    const gallery = (p.gallery || []).map((g, i) => ({ src: g.src, alt: g.alt, num: String(i + 1).padStart(2, '0'), on: () => this.openLb(i) }));
+    const challenges = (p.challenges || []).map((c, i) => ({ ...c, no: String(i + 1).padStart(2, '0') }));
+
+    const dots = projects.map((pr, i) => {
+      const active = i === idx;
+      const col = pr.category === 'Pro' ? vars['--accent'] : vars['--perso'];
+      return { w: active ? '26px' : '9px', color: active ? col : vars['--line-strong'], on: () => this.goTo(i, i > idx ? 1 : -1) };
+    });
+
+    const g = p.gallery || [];
+    const lb = g[this.state.lbIndex] || { src: '', alt: '' };
+
+    return {
+      themeVars: vars,
+      themeLabel: theme === 'dark' ? 'Innie' : 'Outie',
+      toggleTheme: () => {
+        const next = theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('ah-sev-theme', next); } catch (e) {}
+        this.setState({ theme: next });
+      },
+      cardStyle,
+      counter: String(idx + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'),
+      catLabel: p.category === 'Pro' ? 'Dossier Pro' : 'Dossier Perso',
+      catColor,
+      dots,
+      cur: {
+        idHex: '0x' + (idx + 1).toString(16).toUpperCase().padStart(2, '0'),
+        context: p.context, title: p.title, tagline: p.tagline,
+        highlight: p.highlight || '', problem: p.problem || '', solution: p.solution || '', result: p.result || '',
+      },
+      hasHighlight: !!p.highlight,
+      hasGallery: !!(p.gallery && p.gallery.length),
+      isEasyDiet: p.preview === 'easydiet',
+      hasProblem: !!p.problem, hasSolution: !!p.solution,
+      hasFeatures: !!(p.features && p.features.length), hasChallenges: !!(p.challenges && p.challenges.length),
+      hasResult: !!p.result, hasLinks: !!(p.links && p.links.length),
+      gallery, features: p.features || [], challenges, stack: p.stack || [], links: p.links || [],
+      prev: () => this.go(-1),
+      next: () => this.go(1),
+      lbOpen: this.state.lbOpen,
+      lbAlt: lb.alt,
+      lbImg: React.createElement('img', { src: lb.src, alt: lb.alt, style: { maxWidth: '90vw', maxHeight: '78vh', objectFit: 'contain', border: '1px solid var(--line-strong, rgba(159,224,213,.28))' } }),
+      lbCounter: g.length ? (String(this.state.lbIndex + 1) + ' / ' + g.length) : '',
+      closeLb: () => this.setState({ lbOpen: false }),
+      lbPrevBtn: (e) => { e.stopPropagation(); this.lbStep(-1); },
+      lbNextBtn: (e) => { e.stopPropagation(); this.lbStep(1); },
+      navOver: (e) => { e.currentTarget.style.color = 'var(--strong,#eafcf6)'; },
+      navOut: (e) => { e.currentTarget.style.color = 'var(--muted,#6f938d)'; },
+      btnOver: (e) => { e.currentTarget.style.opacity = '.85'; },
+      btnOut: (e) => { e.currentTarget.style.opacity = '1'; },
+      thumbOver: (e) => { e.currentTarget.style.borderColor = 'var(--accent,#4de1c1)'; },
+      thumbOut: (e) => { e.currentTarget.style.borderColor = 'var(--line-strong,rgba(159,224,213,.28))'; },
+      arrowOver: (e) => { e.currentTarget.style.borderColor = 'var(--accent,#4de1c1)'; e.currentTarget.style.color = 'var(--accent,#4de1c1)'; },
+      arrowOut: (e) => { e.currentTarget.style.borderColor = 'var(--line-strong,rgba(159,224,213,.28))'; e.currentTarget.style.color = 'var(--strong,#eafcf6)'; },
+    };
+  }
+}
+</script>
+</body>
+</html>

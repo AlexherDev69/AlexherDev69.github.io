@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#071417; }
+  @keyframes sv-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @keyframes sv-breathe { 0%,100%{opacity:.10} 50%{opacity:.18} }
+  @keyframes sv-scan { 0%{transform:translateY(0)} 100%{transform:translateY(4px)} }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+<div style="{{ themeVars }}">
+<div style="min-height:100vh;background:var(--bg,#071417);color:var(--text,#c9ddd9);font-family:'Archivo',system-ui,sans-serif;position:relative;overflow-x:hidden;">
+
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:8;pointer-events:none;opacity:.4;background:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.09) 2px 3px);animation:sv-scan 1.4s steps(2) infinite;"></div>
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px circle at 50% -12%, var(--halo,rgba(77,225,193,.10)), transparent 62%);"></div>
+
+  <div style="position:relative;z-index:1;">
+
+    <!-- HEADER -->
+    <header style="position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:var(--headbg,rgba(7,20,23,.8));border-bottom:1px solid var(--line,rgba(159,224,213,.14));">
+      <div style="max-width:1180px;margin:0 auto;padding:15px clamp(16px,4vw,40px);display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+        <a href="#top" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit;">
+          <span style="width:26px;height:26px;border:2px solid var(--accent,#4de1c1);border-radius:50%;position:relative;display:inline-block;"><span style="position:absolute;inset:5px;border-radius:50%;border:2px solid var(--accent,#4de1c1);border-right-color:transparent;border-bottom-color:transparent;"></span></span>
+          <span style="font-weight:700;font-size:16px;letter-spacing:.28em;text-transform:uppercase;color:var(--strong,#eafcf6);">Hernandez</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#6f938d);border-left:1px solid var(--line,rgba(159,224,213,.14));padding-left:13px;">Macrodata Refinement</span>
+        </a>
+        <nav style="margin-left:auto;display:flex;gap:22px;flex-wrap:wrap;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;">
+          <a href="#lore" style="color:var(--muted,#6f938d);text-decoration:none;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">Employé</a>
+          <a href="#skills" style="color:var(--muted,#6f938d);text-decoration:none;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">Aptitudes</a>
+          <a href="#xp" style="color:var(--muted,#6f938d);text-decoration:none;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">Historique</a>
+          <a href="#projects" style="color:var(--muted,#6f938d);text-decoration:none;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">Dossiers</a>
+          <a href="#contact" style="color:var(--muted,#6f938d);text-decoration:none;" onMouseOver="{{ navOver }}" onMouseOut="{{ navOut }}">Contact</a>
+        </nav>
+        <button onClick="{{ toggleTheme }}" aria-label="Innie / Outie" style="cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;height:34px;padding:0 12px;display:grid;place-items:center;background:transparent;border:1px solid var(--line-strong,rgba(159,224,213,.28));color:var(--strong,#eafcf6);">{{ themeLabel }}</button>
+      </div>
+    </header>
+
+    <a id="top"></a>
+    <main style="max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px);">
+
+      <!-- HERO — MDR TERMINAL -->
+      <section style="padding:clamp(34px,5vw,64px) 0 clamp(28px,4vw,48px);">
+        <div style="position:relative;border:1px solid var(--line-strong,rgba(159,224,213,.28));background:var(--terminal,#04171a);border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--line,rgba(159,224,213,.14)), 0 40px 90px -40px rgba(0,0,0,.7), inset 0 0 120px rgba(0,0,0,.5);">
+          <!-- terminal top bar -->
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line,rgba(159,224,213,.14));font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);background:var(--soft,#0c1e22);">
+            <span style="color:var(--accent,#4de1c1);">◵ MDR — Poste 0x1A</span>
+            <span>fichier : AlexandreH_2026.bin</span>
+            <span>raffiné : <span style="color:var(--accent,#4de1c1);">100%</span></span>
+          </div>
+          <!-- terminal body -->
+          <div style="position:relative;min-height:clamp(340px,50vh,480px);display:grid;place-items:center;padding:44px 20px;">
+            <div aria-hidden="true" style="position:absolute;inset:0;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:2.1;letter-spacing:.35em;color:var(--accent,#4de1c1);white-space:pre-wrap;word-break:break-all;overflow:hidden;padding:14px;opacity:.14;animation:sv-breathe 6s ease-in-out infinite;-webkit-mask-image:radial-gradient(circle at 50% 42%, transparent 24%, black 68%);mask-image:radial-gradient(circle at 50% 42%, transparent 24%, black 68%);">{{ macrodata }}</div>
+            <div aria-hidden="true" style="position:absolute;inset:0;box-shadow:inset 0 0 140px 30px rgba(0,0,0,.6);pointer-events:none;"></div>
+            <div style="position:relative;text-align:center;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent,#4de1c1);">Dossier employé — accès autorisé</div>
+              <h1 style="margin:18px 0 0;font-weight:700;line-height:.98;letter-spacing:.01em;font-size:clamp(2.8rem,7.4vw,5.6rem);color:var(--strong,#eafcf6);text-shadow:0 0 26px var(--halo,rgba(77,225,193,.35));">Alexandre Hernandez</h1>
+              <div style="margin:14px 0 0;font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1.7vw,15px);letter-spacing:.16em;text-transform:uppercase;color:var(--text,#c9ddd9);">Développeur Full&nbsp;Stack<span style="color:var(--accent,#4de1c1);animation:sv-blink 1.05s steps(1) infinite;">▊</span></div>
+            </div>
+          </div>
+          <!-- refinement bins -->
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line,rgba(159,224,213,.14));border-top:1px solid var(--line,rgba(159,224,213,.14));">
+            <sc-for list="{{ bins }}" as="b" hint-placeholder-count="5">
+              <div style="background:var(--soft,#0c1e22);padding:12px 10px;text-align:center;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted,#6f938d);">{{ b.code }}</div>
+                <div style="margin:8px auto 0;height:5px;width:82%;background:var(--line,rgba(159,224,213,.14));"><div style="height:100%;width:{{ b.fill }};background:var(--accent,#4de1c1);"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- under-terminal row -->
+        <div style="margin-top:22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;">
+          <p style="margin:0;max-width:52ch;font-size:15.5px;line-height:1.7;color:var(--muted,#6f938d);">Je conçois des applications web &amp; mobiles rapides et bien pensées, avec un intérêt marqué pour les workflows d'IA agentique. Chaque dossier est raffiné avec soin.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <a href="#projects" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--bg,#071417);background:var(--accent,#4de1c1);padding:13px 18px;transition:opacity .2s;" onMouseOver="{{ btnOver }}" onMouseOut="{{ btnOut }}">Ouvrir les dossiers</a>
+            <a href="#contact" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text,#c9ddd9);border:1px solid var(--line-strong,rgba(159,224,213,.28));padding:12px 17px;" onMouseOver="{{ ghostOver }}" onMouseOut="{{ ghostOut }}">Contact</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · L'EMPLOYÉ -->
+      <section id="lore" style="scroll-margin-top:90px;padding:clamp(46px,6vw,84px) 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+        <div class="reveal" style="display:grid;grid-template-columns:320px 1fr;gap:clamp(28px,5vw,64px);align-items:start;">
+          <!-- employee badge -->
+          <div style="background:var(--soft,#0c1e22);border:1px solid var(--line-strong,rgba(159,224,213,.28));border-radius:12px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(0,0,0,.7);">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line,rgba(159,224,213,.14));font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#4de1c1);">
+              <span>◵ Badge</span><span style="color:var(--muted,#6f938d);">Niv. ∞</span>
+            </div>
+            <div style="aspect-ratio:1;overflow:hidden;background:var(--terminal,#04171a);filter:grayscale(.35) contrast(1.05);">
+              <image-slot id="sv-badge" shape="rect" placeholder="Photo employé" style="width:100%;height:100%;"></image-slot>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-weight:700;font-size:1.25rem;color:var(--strong,#eafcf6);letter-spacing:.01em;">Alexandre Hernandez</div>
+              <div style="margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);">Macrodata Refinement · Lyon</div>
+              <div style="margin-top:12px;height:34px;background:repeating-linear-gradient(90deg, var(--strong,#eafcf6) 0 2px, transparent 2px 4px, var(--strong,#eafcf6) 4px 5px, transparent 5px 9px);opacity:.85;"></div>
+              <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted,#6f938d);">ID 0x1A · 2018—∞</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#6f938d);"><span style="color:var(--accent,#4de1c1);">Section 01</span> · L'employé</div>
+            <h2 style="margin:16px 0 22px;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.06;letter-spacing:-.01em;color:var(--strong,#eafcf6);">Six ans de raffinement, dix ans de compétition.</h2>
+            <p style="margin:0 0 16px;font-size:16px;line-height:1.8;color:var(--text,#c9ddd9);max-width:60ch;">Développeur Full Stack avec 6 années d'expérience dans la conception et le développement d'applications web et mobiles, en salarié comme en freelance indépendant pour de multiples clients.</p>
+            <p style="margin:0;font-size:16px;line-height:1.8;color:var(--muted,#6f938d);max-width:60ch;">Récemment spécialisé dans les workflows d'IA agentique (LLM / MCP). Un solide sens de la communication et de la gestion de projet, forgé dans l'Esport : joueur professionnel pendant dix ans, organisateur d'événements pendant quatre.</p>
+            <div style="margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line,rgba(159,224,213,.14));border:1px solid var(--line,rgba(159,224,213,.14));">
+              <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+                <div style="background:var(--soft,#0c1e22);padding:18px 16px;">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:2.2rem;line-height:1;color:var(--accent,#4de1c1);">{{ s.value }}</div>
+                  <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);line-height:1.6;">{{ s.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · APTITUDES -->
+      <section id="skills" style="scroll-margin-top:90px;padding:clamp(46px,6vw,84px) 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+        <div class="reveal">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#6f938d);"><span style="color:var(--accent,#4de1c1);">Section 02</span> · Aptitudes</div>
+          <h2 style="margin:16px 0 34px;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);letter-spacing:-.01em;color:var(--strong,#eafcf6);">Le manuel</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--line,rgba(159,224,213,.14));border:1px solid var(--line,rgba(159,224,213,.14));">
+          <sc-for list="{{ skills }}" as="g" hint-placeholder-count="6">
+            <div class="reveal" style="background:var(--soft,#0c1e22);padding:22px 24px;">
+              <div style="display:flex;align-items:baseline;gap:12px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent,#4de1c1);">{{ g.no }}</span>
+                <h3 style="font-weight:600;font-size:1.3rem;letter-spacing:-.01em;color:var(--strong,#eafcf6);">{{ g.title }}</h3>
+              </div>
+              <div style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:2;color:var(--muted,#6f938d);">{{ g.line }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- 03 · HISTORIQUE -->
+      <section id="xp" style="scroll-margin-top:90px;padding:clamp(46px,6vw,84px) 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+        <div class="reveal">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#6f938d);"><span style="color:var(--accent,#4de1c1);">Section 03</span> · Historique</div>
+          <h2 style="margin:16px 0 34px;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);letter-spacing:-.01em;color:var(--strong,#eafcf6);">Registre de service</h2>
+        </div>
+        <div style="display:grid;gap:0;">
+          <sc-for list="{{ experiences }}" as="e" hint-placeholder-count="2">
+            <div class="reveal" style="display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,4vw,56px);padding:28px 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent,#4de1c1);letter-spacing:.06em;">{{ e.period }}</div>
+                <div style="margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);">{{ e.type }} · {{ e.location }}</div>
+              </div>
+              <div>
+                <h3 style="font-weight:600;font-size:1.6rem;letter-spacing:-.01em;color:var(--strong,#eafcf6);line-height:1.15;">{{ e.role }}</h3>
+                <div style="margin:4px 0 14px;font-size:14px;color:var(--muted,#6f938d);">{{ e.company }}</div>
+                <ul style="margin:0;padding:0;list-style:none;display:grid;gap:9px;">
+                  <sc-for list="{{ e.highlights }}" as="h" hint-placeholder-count="3">
+                    <li style="position:relative;padding-left:20px;font-size:14.5px;line-height:1.7;color:var(--text,#c9ddd9);">
+                      <span style="position:absolute;left:0;top:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent,#4de1c1);">›</span>{{ h }}
+                    </li>
+                  </sc-for>
+                </ul>
+              </div>
+            </div>
+          </sc-for>
+          <div class="reveal" style="display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,4vw,56px);padding:28px 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);">Annexe</div>
+            <div style="display:flex;gap:56px;flex-wrap:wrap;">
+              <div><div style="font-weight:600;font-size:1.25rem;color:var(--strong,#eafcf6);">BTS SIO</div><div style="font-size:13px;color:var(--muted,#6f938d);">Lycée ICOF, Lyon · 2016</div></div>
+              <div><div style="font-weight:600;font-size:1.25rem;color:var(--strong,#eafcf6);">Langues</div><div style="font-size:13px;color:var(--muted,#6f938d);">Français (natif) · Anglais (bilingue)</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · DOSSIERS -->
+      <section id="projects" style="scroll-margin-top:90px;padding:clamp(46px,6vw,84px) 0;border-top:1px solid var(--line,rgba(159,224,213,.14));">
+        <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:30px;">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#6f938d);"><span style="color:var(--accent,#4de1c1);">Section 04</span> · Dossiers</div>
+            <h2 style="margin:16px 0 0;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);letter-spacing:-.01em;color:var(--strong,#eafcf6);">Huit fichiers raffinés</h2>
+          </div>
+          <a href="Projets%20Severance.dc.html" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,#4de1c1);border-bottom:1px solid var(--accent,#4de1c1);padding-bottom:3px;" onMouseOver="{{ linkOver }}" onMouseOut="{{ linkOut }}">Archive complète ↗</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="8">
+            <a href="{{ p.href }}" onMouseOver="{{ fileOver }}" onMouseOut="{{ fileOut }}" style="text-decoration:none;color:inherit;display:block;background:var(--soft,#0c1e22);border:1px solid var(--line,rgba(159,224,213,.14));border-radius:8px;padding:16px;transition:border-color .2s ease,transform .2s ease;">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6f938d);">
+                <span>{{ p.id }}</span><span>{{ p.category }}</span>
+              </div>
+              <div data-nums style="margin:12px 0 4px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.3em;color:var(--accent,#4de1c1);opacity:.32;transition:opacity .25s ease,transform .25s ease;transform-origin:left;">08 42 19&nbsp;&nbsp;7 05 61 3</div>
+              <h3 style="margin:8px 0 4px;font-weight:600;font-size:1.35rem;letter-spacing:-.01em;color:var(--strong,#eafcf6);">{{ p.star }}{{ p.title }}</h3>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#6f938d);">{{ p.format }}</div>
+              <div style="margin:14px 0 10px;height:1px;background:var(--line,rgba(159,224,213,.14));"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted,#6f938d);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ p.casting }}</span>
+                <span data-open style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,#4de1c1);opacity:0;transition:opacity .2s;">Ouvrir ▸</span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- 05 · CONTACT -->
+      <section id="contact" style="scroll-margin-top:90px;padding:clamp(56px,8vw,110px) 0;border-top:1px solid var(--line,rgba(159,224,213,.14));text-align:center;">
+        <div class="reveal" style="max-width:660px;margin:0 auto;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent,#4de1c1);">Section 05 · Prise de contact extérieur</div>
+          <h2 style="margin:20px 0 12px;font-weight:700;font-size:clamp(2.2rem,5.5vw,3.9rem);line-height:1.03;letter-spacing:-.02em;color:var(--strong,#eafcf6);">Autorisation de sortie accordée.</h2>
+          <p style="margin:0 auto 30px;max-width:46ch;font-size:16px;line-height:1.75;color:var(--muted,#6f938d);">Un projet, une mission freelance, ou l'envie d'échanger sur l'IA agentique — le canal est ouvert.</p>
+          <a href="/cdn-cgi/l/email-protection#41202d24392924332f202f25243b6f31332e01262c20282d6f222e2c" style="text-decoration:none;display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:clamp(1rem,3vw,1.5rem);color:var(--accent,#4de1c1);border:1px solid var(--accent,#4de1c1);padding:14px 22px;letter-spacing:.02em;transition:background-color .2s,color .2s;" onMouseOver="{{ mailOver }}" onMouseOut="{{ mailOut }}">&gt; <span class="__cf_email__" data-cfemail="5d3c31382535382f333c33393827732d2f321d3a303c3431733e3230">[email&#160;protected]</span></a>
+          <div style="margin-top:38px;display:flex;gap:24px;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted,#6f938d);">
+            <a href="https://github.com/AlexherDev69" target="_blank" rel="noopener" style="color:var(--text,#c9ddd9);text-decoration:none;" onMouseOver="{{ linkOver }}" onMouseOut="{{ linkOut }}">GitHub</a>
+            <a href="https://www.linkedin.com/in/alexherpro/" target="_blank" rel="noopener" style="color:var(--text,#c9ddd9);text-decoration:none;" onMouseOver="{{ linkOver }}" onMouseOut="{{ linkOut }}">LinkedIn</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer style="border-top:1px solid var(--line,rgba(159,224,213,.14));">
+      <div style="max-width:1180px;margin:0 auto;padding:22px clamp(16px,4vw,40px);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted,#6f938d);">
+        <span>© 2026 A. Hernandez</span>
+        <span style="color:var(--accent,#4de1c1);">Un travail précis &amp; important</span>
+        <span>Bâti avec Astro &amp; React</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { theme: 'dark' };
+
+  componentDidMount() {
+    try {
+      const saved = localStorage.getItem('ah-sev-theme');
+      if (saved === 'light' || saved === 'dark') this.setState({ theme: saved });
+    } catch (e) {}
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const root = this.el || document;
+    const els = root.querySelectorAll('.reveal');
+    els.forEach((n) => { n.style.opacity = '0'; n.style.transform = 'translateY(22px)'; n.style.transition = 'opacity .7s ease, transform .7s ease'; });
+    if (reduce) { els.forEach((n) => { n.style.opacity = '1'; n.style.transform = 'none'; }); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach((n) => io.observe(n));
+  }
+
+  themeVarsFor(theme) {
+    if (theme === 'light') {
+      return {
+        '--bg': '#eef1ee', '--soft': '#ffffff', '--terminal': '#dfe6e3', '--headbg': 'rgba(238,241,238,.86)',
+        '--line': 'rgba(16,40,44,.14)', '--line-strong': 'rgba(16,40,44,.26)',
+        '--text': '#20302e', '--strong': '#0b1a19', '--muted': '#5c6f6c', '--accent': '#0e8f79',
+        '--halo': 'rgba(14,143,121,.14)',
+      };
+    }
+    return {
+      '--bg': '#071417', '--soft': '#0c1e22', '--terminal': '#04171a', '--headbg': 'rgba(7,20,23,.8)',
+      '--line': 'rgba(159,224,213,.14)', '--line-strong': 'rgba(159,224,213,.28)',
+      '--text': '#c9ddd9', '--strong': '#eafcf6', '--muted': '#6f938d', '--accent': '#4de1c1',
+      '--halo': 'rgba(77,225,193,.32)',
+    };
+  }
+
+  makeMacrodata() {
+    let out = '';
+    for (let r = 0; r < 16; r++) {
+      let line = '';
+      for (let c = 0; c < 44; c++) {
+        line += Math.floor(Math.random() * 10);
+        if (Math.random() < 0.16) line += ' ';
+      }
+      out += line + '\n';
+    }
+    return out;
+  }
+
+  renderVals() {
+    const theme = this.state.theme;
+
+    const skills = [
+      { title: 'Frontend', line: 'React · Next.js · TypeScript · Tailwind CSS' },
+      { title: 'Mobile', line: 'Flutter · Cubit · React Native · Drift' },
+      { title: 'Backend', line: 'Node.js · Express · PHP · REST API · Mongoose' },
+      { title: 'Data & Infra', line: 'MongoDB · Redis · Firebase · Docker · Vercel · CI/CD' },
+      { title: 'IA / LLM', line: 'Agentic AI (LLM / MCP) · RAG · LangChain · Qdrant' },
+      { title: 'Desktop', line: 'Tauri · Electron' },
+    ].map((g, i) => ({ ...g, no: '2.' + (i + 1) }));
+
+    const stats = [
+      { value: '6', label: "Ans d'expérience" },
+      { value: '10+', label: 'Projets livrés' },
+      { value: '10', label: 'Ans Esport pro' },
+    ];
+
+    const bins = [
+      { code: 'WEB', fill: '100%' },
+      { code: 'APP', fill: '100%' },
+      { code: 'API', fill: '92%' },
+      { code: 'IA', fill: '86%' },
+      { code: 'OPS', fill: '78%' },
+    ];
+
+    const experiences = [
+      {
+        company: 'IDBUCKS', role: 'Développeur Full Stack', type: 'Freelance',
+        period: '2022 — présent', location: 'Lyon / Remote',
+        highlights: [
+          'Autonomie complète sur plusieurs projets clients, de la conception au déploiement.',
+          'MateApp, Keepture, Acqua Protection : apps mobiles Flutter / React Native + web Next.js.',
+          'Collaboration directe avec clients et CTO, intégration depuis maquettes Figma.',
+        ],
+      },
+      {
+        company: 'Nicecactus', role: 'Full Stack & Gaming Project Manager', type: 'CDI',
+        period: '2018 — 2022', location: 'Sophia Antipolis',
+        highlights: [
+          "Plateforme de tournois Esport (PHP, JS) au sein d'une équipe de 10 développeurs.",
+          'Conception et implémentation des fonctionnalités core de gestion des tournois.',
+          'Gestion de projets événementiels Esport B2B/B2C et relations partenaires.',
+        ],
+      },
+    ];
+
+    const raw = [
+      { title: 'MateApp', category: 'Pro', format: 'App mobile', stack: ['Flutter', 'Dart', 'Next.js'], star: false },
+      { title: 'Keepture', category: 'Pro', format: 'App mobile', stack: ['React Native', 'TypeScript'], star: false },
+      { title: 'Acqua Protection', category: 'Pro', format: 'Web + mobile', stack: ['Next.js', 'Node.js'], star: false },
+      { title: 'Tournois Esport', category: 'Pro', format: 'Plateforme web', stack: ['PHP', 'JavaScript'], star: false },
+      { title: 'Boost for Letterboxd', category: 'Perso', format: 'Extension Chrome', stack: ['TypeScript', 'esbuild', 'Vitest'], star: true },
+      { title: 'EasyDiet', category: 'Perso', format: 'App mobile', stack: ['Flutter', 'Drift', 'Material 3'], star: true },
+      { title: 'MirrorMind', category: 'Perso', format: 'Desktop + MCP', stack: ['Tauri', 'Rust', 'scrcpy'], star: true },
+      { title: '5 minutes', category: 'Perso', format: 'SaaS IA', stack: ['React', 'FastAPI', 'RAG'], star: false },
+    ];
+    const slugs = ['mateapp', 'keepture', 'acqua-protection', 'plateforme-esport-nicecactus', 'boost-for-letterboxd', 'easydiet', 'mirrormind', '5-minutes'];
+    const projects = raw.map((p, i) => ({
+      id: '0x' + (i + 1).toString(16).toUpperCase().padStart(2, '0'),
+      title: p.title, category: p.category, format: p.format,
+      casting: p.stack.join(' · '),
+      star: p.star ? '★ ' : '',
+      href: 'Projets%20Severance.dc.html#' + slugs[i],
+    }));
+
+    return {
+      themeVars: this.themeVarsFor(theme),
+      themeLabel: theme === 'dark' ? 'Innie' : 'Outie',
+      macrodata: this.makeMacrodata(),
+      toggleTheme: () => {
+        const next = theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('ah-sev-theme', next); } catch (e) {}
+        this.setState({ theme: next });
+      },
+      skills, stats, bins, experiences, projects,
+      btnOver: (e) => { e.currentTarget.style.opacity = '.85'; },
+      btnOut: (e) => { e.currentTarget.style.opacity = '1'; },
+      ghostOver: (e) => { e.currentTarget.style.borderColor = 'var(--accent,#4de1c1)'; e.currentTarget.style.color = 'var(--accent,#4de1c1)'; },
+      ghostOut: (e) => { e.currentTarget.style.borderColor = 'var(--line-strong,rgba(159,224,213,.28))'; e.currentTarget.style.color = 'var(--text,#c9ddd9)'; },
+      navOver: (e) => { e.currentTarget.style.color = 'var(--strong,#eafcf6)'; },
+      navOut: (e) => { e.currentTarget.style.color = 'var(--muted,#6f938d)'; },
+      linkOver: (e) => { e.currentTarget.style.color = 'var(--strong,#eafcf6)'; },
+      linkOut: (e) => { e.currentTarget.style.color = ''; },
+      mailOver: (e) => { e.currentTarget.style.backgroundColor = 'var(--accent,#4de1c1)'; e.currentTarget.style.color = 'var(--bg,#071417)'; },
+      mailOut: (e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--accent,#4de1c1)'; },
+      fileOver: (e) => {
+        const c = e.currentTarget; c.style.borderColor = 'var(--accent,#4de1c1)'; c.style.transform = 'translateY(-3px)';
+        const n = c.querySelector('[data-nums]'); if (n) { n.style.opacity = '.85'; n.style.transform = 'scaleX(1.06)'; }
+        const o = c.querySelector('[data-open]'); if (o) o.style.opacity = '1';
+      },
+      fileOut: (e) => {
+        const c = e.currentTarget; c.style.borderColor = 'var(--line,rgba(159,224,213,.14))'; c.style.transform = 'none';
+        const n = c.querySelector('[data-nums]'); if (n) { n.style.opacity = '.32'; n.style.transform = 'none'; }
+        const o = c.querySelector('[data-open]'); if (o) o.style.opacity = '0';
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
