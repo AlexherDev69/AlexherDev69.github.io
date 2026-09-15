@@ -16,7 +16,7 @@
 .detail.is-swapping .detail__body { opacity: 0; transform: translateY(28px); }
 
 .d-hero { padding: 88px 48px 56px; }
-.d-title { margin: 20px 0 0; overflow: hidden; padding-bottom: .08em; font-family: var(--serif); font-weight: 340; font-size: clamp(60px, 9.4vw, 150px); line-height: .95; letter-spacing: -.034em; }
+.d-title { margin: calc(20px - .1em) 0 0; overflow: hidden; padding: .1em 0 .08em; font-family: var(--serif); font-weight: 340; font-size: clamp(60px, 9.4vw, 150px); line-height: .95; letter-spacing: -.034em; }
 .d-title > span { display: inline-block; }
 .anim .detail .d-title > span { animation: rise 1.4s var(--ease) .5s both; }
 .anim .detail .d-in { animation: fadeUp 1.2s var(--ease) both; animation-delay: calc(var(--i, 0) * 110ms + 450ms); }
