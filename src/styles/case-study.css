@@ -26,9 +26,15 @@
 .d-band { border-radius: 6px; overflow: hidden; }
 .anim .detail .d-band { animation: bandIn 1.5s var(--ease-io) .75s both; }
 @keyframes bandIn { from { clip-path: inset(0 0 100% 0 round 6px); } to { clip-path: inset(0 0 0 0 round 6px); } }
-.d-gallery { display: flex; justify-content: safe center; align-items: center; gap: 22px; padding: 64px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.d-gallery { display: flex; justify-content: safe center; align-items: center; gap: 22px; padding: 64px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.d-gallery::-webkit-scrollbar { display: none; }
+.d-gallery.is-draggable { cursor: grab; }
+.d-gallery.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.d-gallery img { -webkit-user-drag: none; user-select: none; }
 .g { flex: none; height: 540px; scroll-snap-align: center; }
-.g img { height: 100%; width: auto; }
+.g img, .g video { height: 100%; width: auto; }
+/* The autoscroll script moves the gallery pixel by pixel: snapping would pull it back */
+.anim .d-gallery[data-autoscroll] { scroll-snap-type: none; }
 .g.phone, .g.tile { border-radius: 22px; }
 .g--wide { height: 460px; border-radius: 10px; overflow: hidden; box-shadow: 0 34px 60px -26px rgba(0, 0, 0, .6); }
 .g--short { height: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7); }

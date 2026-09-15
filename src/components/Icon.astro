@@ -1,5 +1,5 @@
 ---
-type IconName = 'arrow-right' | 'arrow-left' | 'arrow-down' | 'external';
+type IconName = 'arrow-right' | 'arrow-left' | 'arrow-down' | 'external' | 'close';
 
 interface Props {
   name: IconName;
@@ -11,6 +11,7 @@ const PATHS: Record<IconName, string> = {
   'arrow-left': 'M20 12H5M11 6l-6 6 6 6',
   'arrow-down': 'M12 4v15M6 13l6 6 6-6',
   external: 'M7 17L17 7M8 7h9v9',
+  close: 'M6 6l12 12M18 6L6 18',
 };
 
 const DEFAULT_SIZE = 18;

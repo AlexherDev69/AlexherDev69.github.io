@@ -1,0 +1,16 @@
+---
+/**
+ * Aperçu plein écran des images et vidéos des galeries d'études de cas.
+ * Rempli et animé par `scripts/gallery-lightbox.ts`.
+ */
+import Icon from './Icon.astro';
+---
+
+<dialog class="lb" aria-label="Aperçu en plein écran" data-lightbox>
+  <div class="lb__backdrop" data-lightbox-backdrop></div>
+  <figure class="lb__figure">
+    <div class="lb__media" data-lightbox-media></div>
+    <figcaption class="lb__caption" data-lightbox-chrome data-lightbox-caption></figcaption>
+  </figure>
+  <button type="button" class="lb__close" aria-label="Fermer l'aperçu" data-lightbox-chrome><Icon name="close" size={22} /></button>
+</dialog>
