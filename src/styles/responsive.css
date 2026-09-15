@@ -38,11 +38,7 @@
   .shot--lead { width: 42%; }
   .stage__view > .shot:nth-child(3) { display: none; }
   .mm-shot { width: 66%; }
-  .fm { width: 86%; gap: 24px; }
-  .fm__row { grid-template-columns: 104px minmax(0, 1fr) 28px; font-size: 13px; }
-  .ed-phone { padding: 16px 12px; font-size: 11px; }
-  .ed-ring { width: 100px; height: 100px; }
-  .ed-ring__in { width: 76px; height: 76px; }
+  .dsk { width: 92%; height: 64%; }
   .other, .xp__row, .about { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .other__t, .other__c, .other__d, .xp__when, .xp__main, .xp__desc, .about__pic, .about__body { grid-column: auto; }
   .other__t, .xp__role { font-size: 26px; }
@@ -62,7 +58,6 @@
   .g { height: 400px; }
   .g--wide { height: 340px; }
   .g--short { height: 220px; }
-  .g--mock { width: 210px; }
   .d-sec { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 40px 0; }
   .d-sec__label, .d-sec__body { grid-column: auto; }
   .d-ch { grid-template-columns: minmax(0, 1fr); gap: 28px; }

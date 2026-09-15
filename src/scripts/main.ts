@@ -1,5 +1,4 @@
 import { initCaseStudies } from './case-studies';
-import { initCountdown } from './countdown';
 import { initHeader } from './header';
 import { createRevealer } from './reveal';
 import { initAutoplayVideos } from './videos';
@@ -7,6 +6,5 @@ import { initAutoplayVideos } from './videos';
 const revealer = createRevealer();
 revealer.observe(document);
 initHeader();
-initCountdown();
 initAutoplayVideos();
 initCaseStudies(revealer);

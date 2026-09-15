@@ -32,9 +32,6 @@
 .g.phone, .g.tile { border-radius: 22px; }
 .g--wide { height: 460px; border-radius: 10px; overflow: hidden; box-shadow: 0 34px 60px -26px rgba(0, 0, 0, .6); }
 .g--short { height: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7); }
-.g--mock { height: auto; width: 250px; }
-.g--fm { height: auto; width: min(760px, 100%); padding: 24px 0; }
-.g--fm .fm { width: 100%; }
 .anim .detail .g { animation: fadeUp 1.2s var(--ease) both; animation-delay: calc(var(--i, 0) * 90ms + 1s); }
 
 .d-content { padding-top: 40px; }
