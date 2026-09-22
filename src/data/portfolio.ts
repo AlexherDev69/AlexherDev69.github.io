@@ -53,7 +53,7 @@ export const profile: Profile = {
   email: 'alexhernandez.pro@gmail.com',
   heroTitle: ['Je conçois des applications', "web et mobiles, de l'idée", 'à la'],
   heroEmphasis: 'mise en ligne',
-  heroLead: `Huit ans à livrer des produits web et mobiles, d'abord en CDI chez Nicecactus sur une plateforme de tournois esport, puis en freelance depuis 2022 (MateApp, Keepture, Acqua Protection). Aujourd'hui, je conçois des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je fais grandir 10${NBSP}000 pas, mon app de marche lancée en août 2026 et adoptée par plus de 500 utilisateurs.`,
+  heroLead: `Huit ans à livrer des produits web et mobiles, d'abord en CDI chez Nicecactus sur une plateforme de tournois esport, puis en freelance depuis 2022 (MateApp, Keepture, Acqua Protection). Aujourd'hui, je conçois des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je fais grandir mes propres apps : 10${NBSP}000 pas, lancée en août 2026 et adoptée par plus de 500 utilisateurs, et EasyDiet, qui en compte plus de 1${NBSP}500.`,
   aboutLead: 'Je construis des produits web et mobiles de bout en bout, du premier écran à la mise en production.',
   aboutText:
     "Après quatre ans en CDI chez Nicecactus puis des missions freelance pour de nombreux clients, je me suis spécialisé dans les workflows d'IA agentique : des outils et des automatisations qui s'appuient sur les LLM et le protocole MCP. Français natif, bilingue en anglais.",

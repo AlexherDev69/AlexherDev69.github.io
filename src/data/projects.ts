@@ -204,14 +204,14 @@ export const projects: Project[] = [
     highlights: [
       { label: 'Recettes', value: '96' },
       { label: 'Réseau', value: `100${NBSP}% hors ligne` },
-      { label: 'Store', value: 'Google Play' },
+      { label: 'Utilisateurs', value: `Plus de 1${NBSP}500` },
     ],
     stackSummary: ['Flutter', 'Cubit', 'Drift (SQLite)', 'go_router', 'fl_chart', 'Clean Architecture'],
     meta: [
       { label: 'Contexte', value: 'Projet personnel' },
       { label: 'Plateforme', value: 'Android' },
       { label: 'Rôle', value: 'Conception, développement, publication' },
-      { label: 'Statut', value: 'Publiée sur Google Play' },
+      { label: 'Statut', value: `Publiée sur Google Play, plus de 1${NBSP}500 utilisateurs` },
     ],
     problem: 'Les applications de nutrition sérieuses sont presque toutes payantes, chargées de publicités et bloquées derrière un compte. Elles hébergent surtout des données de santé sensibles sur leurs serveurs.',
     solution: "EasyDiet fait tout le travail sur le téléphone. À partir d'un profil (poids, taille, objectif, activité), l'application calcule les besoins caloriques et compose le programme de repas, la liste de courses et le suivi de la progression. Aucune connexion, aucun compte, aucune donnée qui quitte l'appareil.",
@@ -227,7 +227,7 @@ export const projects: Project[] = [
       { title: 'Architecture hors ligne', text: 'Clean Architecture, base Drift à 9 tables, injection GetIt et état géré avec Cubit. Aucun appel réseau.' },
       { title: 'Optimiseur de batch cooking', text: 'Entrelacement des étapes de préparation, cuisson et finition de plusieurs recettes pour cuisiner plusieurs jours en une session.' },
     ],
-    result: `Une application complète et publiée, portée d'une app Kotlin native vers Flutter : une logique métier nutrition non triviale, 100${NBSP}% hors ligne et respectueuse de la vie privée.`,
+    result: `Publiée sur Google Play et adoptée par plus de 1${NBSP}500 utilisateurs. Une application complète, portée d'une app Kotlin native vers Flutter : une logique métier nutrition non triviale, 100${NBSP}% hors ligne et respectueuse de la vie privée.`,
     stack: ['Flutter', 'Dart', 'Cubit', 'Drift (SQLite)', 'GetIt', 'go_router', 'freezed', 'fl_chart', 'Clean Architecture'],
     links: [{ label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.easydiet.easydiet' }],
     social: {
