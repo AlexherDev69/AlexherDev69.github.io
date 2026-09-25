@@ -53,10 +53,10 @@ export const profile: Profile = {
   email: 'alexhernandez.pro@gmail.com',
   heroTitle: ['Je conçois des applications', "web et mobiles, de l'idée", 'à la'],
   heroEmphasis: 'mise en ligne',
-  heroLead: `Huit ans à livrer des produits web et mobiles, d'abord en CDI chez Nicecactus sur une plateforme de tournois esport, puis en freelance depuis 2022 (MateApp, Keepture, Acqua Protection). Aujourd'hui, je conçois des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je fais grandir mes propres apps : 10${NBSP}000 pas, lancée en août 2026 et adoptée par plus de 500 utilisateurs, et EasyDiet, qui en compte plus de 1${NBSP}500.`,
+  heroLead: `Huit ans à livrer des produits web et mobiles, en CDI chez Nicecactus puis en freelance depuis 2022. Mes propres apps, 10${NBSP}000 pas et EasyDiet, cumulent aujourd'hui plus de 2${NBSP}000 utilisateurs.`,
   aboutLead: 'Je construis des produits web et mobiles de bout en bout, du premier écran à la mise en production.',
   aboutText:
-    "Après quatre ans en CDI chez Nicecactus puis des missions freelance pour de nombreux clients, je me suis spécialisé dans les workflows d'IA agentique : des outils et des automatisations qui s'appuient sur les LLM et le protocole MCP. Français natif, bilingue en anglais.",
+    "En plus des projets clients, j'ai lancé quatre produits en solo : deux apps mobiles, une extension Chrome et un outil open source. De l'idée à la publication, puis le support, les retours utilisateurs et les mises à jour, je m'occupe de tout. C'est ce qui me fait penser produit plutôt que tickets : je sais ce qu'une fonctionnalité apporte vraiment et ce qu'elle coûte à maintenir. Je conçois aussi des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je m'appuie sur ces workflows au quotidien pour livrer plus vite sans sacrifier la qualité. Français natif, bilingue en anglais.",
   contactTitle: 'Un projet, une mission,',
   contactEmphasis: 'un poste',
   contactText: 'Je cherche un CDI ou une mission freelance, à Lyon ou en télétravail.',
