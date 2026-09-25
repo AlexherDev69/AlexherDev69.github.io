@@ -133,12 +133,12 @@ export const projects: Project[] = [
     highlights: [
       { label: 'Lancement', value: 'Août 2026' },
       { label: 'Utilisateurs', value: 'Plus de 500' },
-      { label: 'Plateforme', value: 'Android, iOS bientôt' },
+      { label: 'Plateforme', value: 'Android, iOS' },
     ],
     stackSummary: ['Flutter', 'Riverpod', 'MapLibre', 'TypeScript', 'Hono', 'Cloudflare Workers', 'OpenRouteService'],
     meta: [
       { label: 'Contexte', value: 'Projet personnel' },
-      { label: 'Plateforme', value: 'Android, iOS bientôt' },
+      { label: 'Plateforme', value: 'Android, iOS' },
       { label: 'Rôle', value: 'Conception, développement, publication' },
       { label: 'Lancement', value: 'Août 2026, plus de 500 utilisateurs' },
     ],
@@ -158,10 +158,11 @@ export const projects: Project[] = [
       { title: 'Pilotage du produit', text: "Tableau de bord React des statistiques d'usage et des codes premium, ainsi que la publicité et les achats intégrés." },
       { title: 'Industrialisation', text: 'CI GitHub Actions, déploiement automatique du Worker, site vitrine 10000pas.app et vidéos promo en Remotion.' },
     ],
-    result: "Lancée sur Google Play en août 2026, l'app a été portée par un tweet qui a fait le buzz sur X et adoptée par plus de 500 utilisateurs. Un produit mené seul de l'idée à la publication, avec des workflows d'IA agentique (Claude Code).",
+    result: "Lancée sur Google Play en août 2026 puis sur l'App Store, l'app a été portée par un tweet qui a fait le buzz sur X et adoptée par plus de 500 utilisateurs. Un produit mené seul de l'idée à la publication, avec des workflows d'IA agentique (Claude Code).",
     stack: ['Flutter', 'Dart', 'Riverpod', 'Drift (SQLite)', 'MapLibre', 'Health Connect', 'TypeScript', 'Hono', 'Cloudflare Workers', 'OpenRouteService', 'Docker', 'React', 'GitHub Actions'],
     links: [
       { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=app.dixmillepas.dix_mille_pas' },
+      { label: 'App Store', url: 'https://apps.apple.com/fr/app/10000-pas/id6809006341' },
       { label: '10000pas.app', url: 'https://10000pas.app' },
     ],
     social: {
