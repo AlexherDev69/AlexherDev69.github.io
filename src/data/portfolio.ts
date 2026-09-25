@@ -25,12 +25,18 @@ export interface ExternalLink {
   url: string;
 }
 
+/** One line of an experience entry, linked to its case study when there is one. */
+interface ExperienceMission {
+  text: string;
+  caseSlug?: string;
+}
+
 export interface ExperienceItem {
   period: string;
   role: string;
   organization: string;
   description: string;
-  missions?: string[];
+  missions?: ExperienceMission[];
 }
 
 export interface SkillGroup {
@@ -81,7 +87,13 @@ export const experiences: ExperienceItem[] = [
     period: 'Depuis 2026',
     role: 'Développeur indépendant',
     organization: 'Projets personnels · publiés et open source',
-    description: `Mes propres produits, de l'idée à la publication : 10${NBSP}000 pas, EasyDiet, Boost for Letterboxd et MirrorMind.`,
+    description: "Mes propres produits, conçus, développés et publiés seul, de l'idée au suivi des utilisateurs.",
+    missions: [
+      { text: `10${NBSP}000 pas : application mobile Android et iOS qui génère une boucle de marche calibrée sur les pas restants (Flutter, Cloudflare Workers). Plus de 500 utilisateurs.`, caseSlug: '10000-pas' },
+      { text: `EasyDiet : application mobile Android de plans de repas et de suivi du poids, 100${NBSP}% hors ligne (Flutter). Plus de 1${NBSP}500 utilisateurs.`, caseSlug: 'easydiet' },
+      { text: "Boost for Letterboxd : extension Chrome qui remonte Letterboxd dans les résultats Google (TypeScript), validée par l'équipe Letterboxd.", caseSlug: 'boost-for-letterboxd' },
+      { text: 'MirrorMind : outil Windows open source qui affiche un téléphone Android sur le PC et le fait piloter par Claude Code via MCP (Tauri, Rust, React).', caseSlug: 'mirrormind' },
+    ],
   },
   {
     period: 'Depuis mars 2022',
@@ -89,10 +101,10 @@ export const experiences: ExperienceItem[] = [
     organization: 'IDBUCKS · Lyon, télétravail',
     description: 'Développement en autonomie complète sur plusieurs projets clients, de la conception au déploiement.',
     missions: [
-      'MateApp : application mobile Android et iOS de type réseau social (Flutter) et back-office Next.js.',
-      'Keepture : application mobile Android et iOS de partage de photos (React Native).',
-      'Acqua Protection : plateforme web de gestion (Next.js) et application mobile professionnelle (Flutter).',
-      'Collaboration directe avec les clients et les CTO, intégration à partir de maquettes Figma.',
+      { text: 'MateApp : application mobile Android et iOS de type réseau social (Flutter) et back-office Next.js.', caseSlug: 'mateapp' },
+      { text: 'Keepture : application mobile Android et iOS de partage de photos (React Native).', caseSlug: 'keepture' },
+      { text: 'Acqua Protection : plateforme web de gestion (Next.js) et application mobile professionnelle (Flutter).' },
+      { text: 'Collaboration directe avec les clients et les CTO, intégration à partir de maquettes Figma.' },
     ],
   },
   {

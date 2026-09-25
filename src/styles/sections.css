@@ -8,6 +8,10 @@
 .xp__desc { grid-column: 9 / span 4; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
 .xp__list { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .xp__list li { position: relative; padding-left: 22px; }
+.xp__case { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; cursor: pointer; transition: text-decoration-color .3s ease; }
+.xp__case:hover { text-decoration-color: currentColor; }
+.xp__case .ico { transition: transform .3s ease; }
+.xp__case:hover .ico { transform: translateX(3px); }
 .xp__list li::before { content: ''; position: absolute; left: 0; top: .8em; width: 12px; height: 1px; background: var(--accent); }
 
 /* À propos */

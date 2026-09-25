@@ -1,5 +1,9 @@
 ---
+import Icon from './Icon.astro';
 import { experiences, experienceSince } from '../data/portfolio';
+import { projects } from '../data/projects';
+
+const caseTitle = (slug: string): string => projects.find((project) => project.slug === slug)?.title ?? '';
 ---
 
 <section id="parcours" class="sec" style="padding-top: 72px">
@@ -19,7 +23,18 @@ import { experiences, experienceSince } from '../data/portfolio';
           <div class="xp__desc">
             <p>{item.description}</p>
             {item.missions && (
-              <ul class="xp__list">{item.missions.map((mission) => <li>{mission}</li>)}</ul>
+              <ul class="xp__list">
+                {item.missions.map((mission) => (
+                  <li>
+                    {mission.text}
+                    {mission.caseSlug && (
+                      <button type="button" class="xp__case" data-open-case={mission.caseSlug} aria-label={`Voir l'étude de cas ${caseTitle(mission.caseSlug)}`}>
+                        Étude de cas<Icon name="arrow-right" size={14} />
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>

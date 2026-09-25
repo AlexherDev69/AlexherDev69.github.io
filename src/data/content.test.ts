@@ -54,6 +54,13 @@ describe('projects', () => {
 });
 
 describe('site content', () => {
+  it('should link career entries only to existing case studies', () => {
+    const slugs = new Set(projects.map((project) => project.slug));
+    const linked = experiences.flatMap((item) => item.missions ?? []).flatMap((mission) => (mission.caseSlug ? [mission.caseSlug] : []));
+    expect(linked.length).toBeGreaterThan(0);
+    linked.forEach((slug) => expect(slugs.has(slug), slug).toBe(true));
+  });
+
   it('should only link to secure external pages', () => {
     const links = allContent.filter(({ path }) => path.endsWith('.url'));
     expect(links.length).toBeGreaterThan(0);

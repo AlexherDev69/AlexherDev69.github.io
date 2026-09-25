@@ -32,10 +32,14 @@ export function initCaseStudies(revealer: Revealer): void {
 
   let currentIndex = -1;
   let timer: number | undefined;
+  let lastOpener: HTMLElement | null = null;
 
   const indexFromHash = (): number => slugs.indexOf(decodeURIComponent(window.location.hash.slice(1)));
   const openerFor = (index: number): HTMLElement | null =>
-    document.querySelector<HTMLElement>(`button[data-open-case="${slugs[index]}"]`);
+    document.querySelector<HTMLElement>(`button.more[data-open-case="${slugs[index]}"]`);
+  /** Focus goes back to the button that opened the panel, or to the project card after paging. */
+  const focusTargetFor = (index: number): HTMLElement | null =>
+    lastOpener instanceof HTMLButtonElement && lastOpener.dataset.openCase === slugs[index] ? lastOpener : openerFor(index);
 
   const showArticle = (index: number): void => {
     articles.forEach((article, articleIndex) => {
@@ -60,7 +64,7 @@ export function initCaseStudies(revealer: Revealer): void {
   };
 
   const finishClose = (): void => {
-    const opener = currentIndex >= 0 ? openerFor(currentIndex) : null;
+    const opener = currentIndex >= 0 ? focusTargetFor(currentIndex) : null;
     panel.hidden = true;
     panel.classList.remove('is-leaving', 'is-swapping');
     document.documentElement.style.overflow = '';
@@ -114,6 +118,7 @@ export function initCaseStudies(revealer: Revealer): void {
     if (opener) {
       const index = slugs.indexOf(opener.dataset.openCase ?? '');
       if (index < 0) return;
+      lastOpener = opener;
       const state: CaseHistoryState = { caseSlug: slugs[index], pushed: true };
       history.pushState(state, '', `#${slugs[index]}`);
       open(index);
