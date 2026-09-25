@@ -16,7 +16,12 @@ import { experiences, experienceSince } from '../data/portfolio';
             <h3 class="xp__role">{item.role}</h3>
             <p class="xp__org">{item.organization}</p>
           </div>
-          <p class="xp__desc">{item.description}</p>
+          <div class="xp__desc">
+            <p>{item.description}</p>
+            {item.missions && (
+              <ul class="xp__list">{item.missions.map((mission) => <li>{mission}</li>)}</ul>
+            )}
+          </div>
         </div>
       ))}
     </div>

@@ -30,6 +30,7 @@ export interface ExperienceItem {
   role: string;
   organization: string;
   description: string;
+  missions?: string[];
 }
 
 export interface SkillGroup {
@@ -56,7 +57,7 @@ export const profile: Profile = {
   heroLead: `Huit ans à livrer des produits web et mobiles, en CDI chez Nicecactus puis en freelance depuis 2022. Mes propres apps, 10${NBSP}000 pas et EasyDiet, cumulent aujourd'hui plus de 2${NBSP}000 utilisateurs.`,
   aboutLead: 'Je construis des produits web et mobiles de bout en bout, du premier écran à la mise en production.',
   aboutText:
-    "En plus des projets clients, j'ai lancé quatre produits en solo : deux apps mobiles, une extension Chrome et un outil open source. De l'idée à la publication, puis le support, les retours utilisateurs et les mises à jour, je m'occupe de tout. C'est ce qui me fait penser produit plutôt que tickets : je sais ce qu'une fonctionnalité apporte vraiment et ce qu'elle coûte à maintenir. Je conçois aussi des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je m'appuie sur ces workflows au quotidien pour livrer plus vite sans sacrifier la qualité. Français natif, bilingue en anglais.",
+    "En plus des projets clients, j'ai lancé quatre produits en solo : deux apps mobiles, une extension Chrome et un outil open source. De l'idée à la publication, puis le support, les retours utilisateurs et les mises à jour, je m'occupe de tout. Je conçois aussi des outils d'IA agentique branchés sur les LLM et le protocole MCP, et je m'appuie sur ces workflows au quotidien pour livrer plus vite sans sacrifier la qualité. Français natif, bilingue en anglais.",
   contactTitle: 'Un projet, une mission,',
   contactEmphasis: 'un poste',
   contactText: 'Je cherche un CDI ou une mission freelance, à Lyon ou en télétravail.',
@@ -86,8 +87,13 @@ export const experiences: ExperienceItem[] = [
     period: 'Depuis mars 2022',
     role: 'Développeur full stack freelance',
     organization: 'IDBUCKS · Lyon, télétravail',
-    description:
-      'Missions menées en autonomie pour plusieurs clients, de la conception au déploiement. Échanges directs avec les clients et les CTO, intégration depuis Figma.',
+    description: 'Développement en autonomie complète sur plusieurs projets clients, de la conception au déploiement.',
+    missions: [
+      'MateApp : application mobile Android et iOS de type réseau social (Flutter) et back-office Next.js.',
+      'Keepture : application mobile Android et iOS de partage de photos (React Native).',
+      'Acqua Protection : plateforme web de gestion (Next.js) et application mobile professionnelle (Flutter).',
+      'Collaboration directe avec les clients et les CTO, intégration à partir de maquettes Figma.',
+    ],
   },
   {
     period: 'Mars 2018 à mars 2022',
