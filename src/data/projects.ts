@@ -84,7 +84,7 @@ export interface Project {
 }
 
 const PHONE_SIZE = { width: 540, height: 1206 };
-const EASYDIET_SIZE = { width: 540, height: 1200 };
+const EASYDIET_SIZE = { width: 540, height: 960 };
 const WINDOW_SIZE = { width: 540, height: 648 };
 const DESKTOP_SIZE = { width: 1600, height: 1000 };
 
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     tint: '#DCEBE2',
     tagline: 'Plan de repas sur mesure, liste de courses et suivi du poids. Entièrement hors ligne, sans compte, sans publicité.',
     highlights: [
-      { label: 'Recettes', value: '96' },
+      { label: 'Recettes', value: 'Plus de 200' },
       { label: 'Réseau', value: `100${NBSP}% hors ligne` },
       { label: 'Utilisateurs', value: `Plus de 1${NBSP}500` },
     ],
@@ -217,7 +217,8 @@ export const projects: Project[] = [
     solution: "EasyDiet fait tout le travail sur le téléphone. À partir d'un profil (poids, taille, objectif, activité), l'application calcule les besoins caloriques et compose le programme de repas, la liste de courses et le suivi de la progression. Aucune connexion, aucun compte, aucune donnée qui quitte l'appareil.",
     features: [
       "Plan de repas de la semaine selon le régime et les allergies, avec contrôle des macros et jusqu'à trois jours libres.",
-      '96 recettes avec instructions pas à pas, batch cooking et mode cuisson guidé avec minuteurs.',
+      'Plus de 200 recettes avec instructions pas à pas, batch cooking et mode cuisson guidé avec minuteurs.',
+      "Idée rapide : une recette adaptée au régime en un clic, selon l'envie (apéro, one pot, repas sympa ou express).",
       'Liste de courses triée par rayon, qui garde les cases cochées quand une recette change.',
       "Suivi du poids avec graphique animé et projection de la date d'objectif.",
     ],
@@ -237,24 +238,23 @@ export const projects: Project[] = [
     stage: {
       kind: 'shots',
       shots: [
-        { kind: 'image', frame: 'phone', image: dietImage('recette', 'Fiche recette avec ses macros et ses ingrédients') },
-        { kind: 'image', frame: 'phone', image: dietImage('tableau-de-bord', 'Tableau de bord : calories et macronutriments du jour'), lead: true },
-        { kind: 'image', frame: 'phone', image: dietImage('poids', "Suivi du poids et date d'objectif projetée") },
+        { kind: 'image', frame: 'tile', image: dietImage('semaine', 'Ta semaine de repas, planifiée selon tes calories') },
+        { kind: 'image', frame: 'tile', image: dietImage('accueil', "Objectif calories et repas du jour en un coup d'œil"), lead: true },
+        { kind: 'image', frame: 'tile', image: dietImage('poids', "Suivi du poids et date d'objectif estimée") },
       ],
     },
     gallery: {
       kind: 'images',
-      frame: 'phone',
+      frame: 'tile',
       images: [
-        dietImage('accueil', "Accueil : plans personnalisés, courses automatiques, suivi calorique, tout hors ligne"),
-        dietImage('allergies', 'Allergies et viandes exclues, prises en compte dans la génération du plan'),
-        dietImage('apercu', 'Aperçu de la semaine générée, avec remplacement ou déplacement de chaque repas'),
-        dietImage('tableau-de-bord', 'Tableau de bord : calories et macronutriments du jour, prochain repas'),
-        dietImage('plan', 'Plan de la semaine avec le résumé des macros et les repas cochés'),
-        dietImage('recettes', 'Bibliothèque de recettes filtrée par repas'),
-        dietImage('recette', 'Fiche recette : macros, portions, temps de préparation et ingrédients'),
-        dietImage('courses', 'Liste de courses triée par rayon, avec la progression des achats'),
-        dietImage('poids', "Suivi du poids : courbe sur trois mois et date d'objectif projetée"),
+        dietImage('accueil', 'Accueil : calories restantes, macros et repas du jour'),
+        dietImage('semaine', 'Plan de la semaine, calé sur les calories et les macros'),
+        dietImage('regime', 'Régime, allergies et viandes exclues pris en compte dans le plan'),
+        dietImage('recette', 'Fiche recette : macros, portions ajustables et ingrédients'),
+        dietImage('courses', 'Liste de courses générée depuis le plan et triée par rayon'),
+        dietImage('idee-rapide', 'Idée rapide : une recette adaptée au régime en un clic'),
+        dietImage('recettes', 'Plus de 200 recettes filtrées par repas'),
+        dietImage('poids', "Suivi du poids : courbe d'évolution et date d'objectif estimée"),
       ],
     },
   },
